@@ -463,7 +463,7 @@ img { max-width: 100%; height: auto; display: block; }
   height: 44px;
   top: calc(50% - 22px);
   left: calc(50% - 22px);
-  z-index: 1;
+  z-index: 5;
   transition: transform 0.2s ease-in;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 50%;
@@ -1077,56 +1077,97 @@ img { max-width: 100%; height: auto; display: block; }
 }
 #home-insta-section .home-title a:hover { color: #c0392b; }
 
-.ticker-img-container {
-  display: flex;
-  align-items: center;
+/* Checkerboard-backed, two-row scattered ticker (mirrors dyners.com) */
+.insta-collage {
+  position: relative;
+  padding: 40px 0;
+}
+
+.insta-collage-bg {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 56%;
+  height: 100%;
+  border-radius: 90px;
+  background-color: #0c0c0c;
+  background-image:
+    linear-gradient(45deg, #1c1c1c 25%, transparent 0),
+    linear-gradient(-45deg, #1c1c1c 25%, transparent 0),
+    linear-gradient(45deg, transparent 75%, #1c1c1c 0),
+    linear-gradient(-45deg, transparent 75%, #1c1c1c 0);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0;
+  z-index: 0;
+}
+
+/* Single continuous strip: multi-group (2 stacked photos) alternates
+   with single-group (1 photo). Flexbox align-items:center naturally
+   centers the single photo against the taller stacked pair, which is
+   what creates the interlocking brick look.
+   The track holds the full sequence TWICE back to back and animates
+   with one simple translateX(-50%) — that shift is, by construction,
+   exactly the width of one copy, so the loop is mathematically gapless
+   and overlap-free (no dual-timed-track trick that can drift). */
+.insta-ticker-wrap {
+  position: relative;
+  z-index: 1;
   width: 100%;
   overflow: hidden;
 }
 
-.ticker-img-container .scroll-ticker {
+.insta-scroll-track {
   display: flex;
   align-items: center;
   width: max-content;
+  animation: insta-scroll 40s linear infinite;
 }
 
-.ticker-img-container .ticker-group {
+@keyframes insta-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.multi-group {
   display: flex;
-  align-items: center;
-  white-space: nowrap;
-  animation: scroll1 50s linear infinite;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0 10px;
 }
 
-.ticker-img-container .ticker-group:nth-child(2) {
-  animation: scroll2 50s linear -25s infinite;
-}
+.single-group { margin: 0 10px; }
 
-.insta-item {
+.image-container {
+  display: block;
   width: 260px;
   height: 260px;
-  margin: 0 8px;
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
 }
 
-.insta-item img {
+.image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.5s ease;
 }
 
-.insta-item:hover img { transform: scale(1.08); }
+.image-container:hover img { transform: scale(1.08); }
 
-.insta-overlay {
+.hover-image {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   opacity: 0;
   transition: opacity 0.3s ease;
   color: #fff;
@@ -1134,7 +1175,7 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 14px;
 }
 
-.insta-item:hover .insta-overlay { opacity: 1; }
+.image-container:hover .hover-image { opacity: 1; }
 
 /* ==========================================
    FOOTER
@@ -1390,23 +1431,40 @@ img { max-width: 100%; height: auto; display: block; }
   text-transform: uppercase;
 }
 
-.partners-grid {
+.partners-ticker-container {
+  width: 100%;
+  overflow: hidden;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 50px;
 }
 
-.partners-grid img {
-  height: 40px;
+.partners-ticker-container .scroll-ticker {
+  display: flex;
+  align-items: center;
+  width: max-content;
+}
+
+.partners-ticker-group {
+  display: flex;
+  align-items: center;
+  animation: scroll1 30s linear infinite;
+}
+
+.partners-ticker-container .scroll-ticker .partners-ticker-group:nth-child(2) {
+  animation: scroll2 30s linear -15s infinite;
+}
+
+.partners-ticker-group img {
+  height: 36px;
   width: auto;
+  margin: 0 40px;
   opacity: 0.55;
   filter: grayscale(1);
+  flex-shrink: 0;
   transition: opacity 0.2s ease, filter 0.2s ease;
 }
 
-.partners-grid img:hover { opacity: 1; filter: grayscale(0); }
+.partners-ticker-group img:hover { opacity: 1; filter: grayscale(0); }
 
 /* ==========================================
    MENUS PAGE
@@ -1445,6 +1503,92 @@ img { max-width: 100%; height: auto; display: block; }
 .menu-item-info p { color: #555; font-size: 14px; line-height: 1.6; }
 
 /* ==========================================
+   LEGAL / KVKK PAGES
+   ========================================== */
+.legal-page { padding: 160px 0 100px; background: #fff; }
+
+.legal-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.legal-tabs a {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.1);
+  color: #555;
+  transition: all 0.2s ease;
+}
+
+.legal-tabs a:hover { color: #000; border-color: rgba(0,0,0,0.3); }
+
+.legal-tabs a.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.legal-content { max-width: 900px; }
+
+.legal-content p {
+  color: #444;
+  font-size: 14px;
+  line-height: 1.9;
+  margin-bottom: 18px;
+}
+
+.legal-content h2 {
+  font-size: 22px;
+  font-weight: 900;
+  margin: 40px 0 16px;
+  color: #1a2021;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.legal-content h3 {
+  font-size: 16px;
+  font-weight: 800;
+  margin: 28px 0 10px;
+  color: #1a2021;
+}
+
+.legal-content ul { margin: 0 0 18px 20px; }
+
+.legal-content li {
+  color: #444;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 8px;
+  list-style: disc;
+}
+
+.legal-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  font-size: 13px;
+  overflow-x: auto;
+  display: block;
+}
+
+.legal-content th, .legal-content td {
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.legal-content th { background: #fafafa; font-weight: 700; }
+.legal-content a { color: #c0392b; text-decoration: underline; }
+
+/* ==========================================
    RESPONSIVE
    ========================================== */
 @media (max-width: 991px) {
@@ -1462,4 +1606,8 @@ img { max-width: 100%; height: auto; display: block; }
   .detail-container { border-radius: 30px; }
   .product-image { width: 240px; height: 240px; }
   .inner-content { padding: 24px; }
+  .insta-collage-bg { width: 88%; border-radius: 50px; }
+  .image-container { width: 170px; height: 170px; border-radius: 16px; }
+  .multi-group { gap: 10px; margin: 0 6px; }
+  .single-group { margin: 0 6px; }
 }
