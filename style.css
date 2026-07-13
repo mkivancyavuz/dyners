@@ -583,7 +583,31 @@ img { max-width: 100%; height: auto; display: block; }
 /* ==========================================
    PARALLAX SECTION — Black rounded container
    ========================================== */
-#parallax-section { overflow: hidden; }
+#parallax-section { overflow: hidden; position: relative; }
+
+/* Taller checkerboard box peeking out above/below the solid black
+   content box (same decorative pattern used on the Instagram strip). */
+#parallax-section::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 66%;
+  height: 100%;
+  border-radius: 90px;
+  background-color: #0c0c0c;
+  background-image:
+    linear-gradient(45deg, #1c1c1c 25%, transparent 0),
+    linear-gradient(-45deg, #1c1c1c 25%, transparent 0),
+    linear-gradient(45deg, transparent 75%, #1c1c1c 0),
+    linear-gradient(-45deg, transparent 75%, #1c1c1c 0);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0;
+  z-index: 0;
+}
+
+#parallax-section .container-xxl { position: relative; z-index: 1; }
 
 #parallax-section .content {
   position: relative;
@@ -619,22 +643,27 @@ img { max-width: 100%; height: auto; display: block; }
   justify-content: center;
 }
 
+/* Vertical flanking labels (CHEESE / BURGER), one on each side of the
+   assembled burger — matches dyners.com's side-text treatment rather
+   than a stacked top/bottom watermark. */
 .burger-title {
   position: absolute;
-  font-size: clamp(80px, 14vw, 190px);
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-size: clamp(48px, 7vw, 110px);
   font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: -2px;
-  color: rgba(255, 255, 255, 0.04);
+  line-height: 1;
+  letter-spacing: 6px;
+  color: rgba(255, 255, 255, 0.1);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
   text-transform: uppercase;
   z-index: 1;
   pointer-events: none;
-  width: 100%;
-  text-align: center;
 }
 
-.burger-title.first { top: 15%; }
-.burger-title.last  { bottom: 15%; }
+.burger-title.first { left: 4%; }
+.burger-title.last  { right: 4%; }
 
 .top-group, .middle-group { display: contents; }
 
@@ -650,17 +679,20 @@ img { max-width: 100%; height: auto; display: block; }
   pointer-events: none;
 }
 
-.p-image[src*="ust-ekmek"]  { z-index: 20; max-width: 480px; }
-.p-image[src*="marul"]      { z-index: 19; max-width: 490px; }
-.p-image[src*="sogan.png"]  { z-index: 18; max-width: 250px; }
-.p-image[src*="tursu2"]     { z-index: 17; max-width: 240px; }
-.p-image[src*="sogan2"]     { z-index: 16; max-width: 320px; }
-.p-image[src*="domates"]    { z-index: 15; max-width: 460px; }
-.p-image[src*="tursu.png"]  { z-index: 14; max-width: 160px; }
-.souce                       { z-index: 13; max-width: 470px; }
-.p-image[src*="peynir"]     { z-index: 12; max-width: 480px; }
-.p-image[src*="kofte"]      { z-index: 11; max-width: 480px; }
-.p-image[src*="alt-ekmek"]  { z-index: 10; max-width: 470px; }
+/* Explicit vertical placement so every layer overlaps the next,
+   compacting into one assembled burger instead of a spaced-out list
+   (position:absolute children don't reliably auto-stack otherwise). */
+.p-image[src*="ust-ekmek"]  { z-index: 20; max-width: 480px; top: 3%; }
+.p-image[src*="marul"]      { z-index: 19; max-width: 490px; top: 15%; }
+.p-image[src*="sogan.png"]  { z-index: 18; max-width: 250px; top: 24%; }
+.p-image[src*="tursu2"]     { z-index: 17; max-width: 240px; top: 28%; }
+.p-image[src*="sogan2"]     { z-index: 16; max-width: 320px; top: 32%; }
+.p-image[src*="domates"]    { z-index: 15; max-width: 460px; top: 30%; }
+.p-image[src*="tursu.png"]  { z-index: 14; max-width: 160px; top: 37%; }
+.souce                       { z-index: 25; max-width: 470px; top: 16%; }
+.p-image[src*="peynir"]     { z-index: 12; max-width: 480px; top: 42%; }
+.p-image[src*="kofte"]      { z-index: 11; max-width: 480px; top: 52%; }
+.p-image[src*="alt-ekmek"]  { z-index: 10; max-width: 470px; top: 63%; }
 
 /* ==========================================
    HOME ABOUT SECTION
@@ -1124,6 +1156,11 @@ img { max-width: 100%; height: auto; display: block; }
   animation: insta-scroll 40s linear infinite;
 }
 
+/* Pause the whole strip while the pointer is over any photo in it */
+.insta-ticker-wrap:hover .insta-scroll-track {
+  animation-play-state: paused;
+}
+
 @keyframes insta-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -1132,16 +1169,16 @@ img { max-width: 100%; height: auto; display: block; }
 .multi-group {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  margin: 0 10px;
+  gap: 20px;
+  margin: 0 12px;
 }
 
-.single-group { margin: 0 10px; }
+.single-group { margin: 0 12px; }
 
 .image-container {
   display: block;
-  width: 260px;
-  height: 260px;
+  width: 320px;
+  height: 320px;
   border-radius: 24px;
   overflow: hidden;
   position: relative;
@@ -1607,7 +1644,7 @@ img { max-width: 100%; height: auto; display: block; }
   .product-image { width: 240px; height: 240px; }
   .inner-content { padding: 24px; }
   .insta-collage-bg { width: 88%; border-radius: 50px; }
-  .image-container { width: 170px; height: 170px; border-radius: 16px; }
-  .multi-group { gap: 10px; margin: 0 6px; }
+  .image-container { width: 190px; height: 190px; border-radius: 16px; }
+  .multi-group { gap: 12px; margin: 0 6px; }
   .single-group { margin: 0 6px; }
 }

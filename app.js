@@ -315,9 +315,14 @@ if (videoCaller) {
           const datatype = parseFloat(img.getAttribute("datatype"));
           if (!isNaN(datatype)) {
             // Formula to separate pieces on scrolling up/down
-            // The multiply coefficient (0.22) determines separation sensitivity
-            const offset = distance * datatype * 0.22;
-            img.style.transform = `translateX(-50%) translateY(${offset}px)`;
+            // The multiply coefficient determines separation sensitivity —
+            // lowered from 0.22 so pieces drift apart subtly instead of
+            // flying far apart while scrolling.
+            const offset = distance * datatype * 0.1;
+            // Horizontal jitter only (matches dyners.com — each piece
+            // slides left/right, not up/down), composed with the
+            // existing -50% centering via calc().
+            img.style.transform = `translateX(calc(-50% + ${offset}px))`;
           }
         });
       }
