@@ -305,6 +305,7 @@ if (videoCaller) {
       const viewportCenter = viewHeight / 2;
       const sectionCenter = rect.top + rect.height / 2;
       
+      
       // Distance from screen center
       const distance = sectionCenter - viewportCenter;
 
