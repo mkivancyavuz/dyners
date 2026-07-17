@@ -49,6 +49,14 @@ img { max-width: 100%; height: auto; display: block; }
 [class*="col-"] { padding-right: 15px; padding-left: 15px; }
 .col-12 { flex: 0 0 100%; max-width: 100%; }
 
+/* Base display utilities defined first, mobile-first, so that
+   breakpoint-specific overrides (.d-lg-none, .d-xl-none, etc.) declared
+   later always win the cascade tie-break against these unconditional
+   rules (equal specificity + !important resolves to source order). */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-flex { display: flex !important; }
+
 @media (min-width: 768px) {
   .col-md-6 { flex: 0 0 50%; max-width: 50%; }
 }
@@ -66,11 +74,9 @@ img { max-width: 100%; height: auto; display: block; }
   .col-xl-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
   .offset-xl-1 { margin-left: 8.333333%; }
   .offset-xl-2 { margin-left: 16.666667%; }
+  .d-none.d-xl-block { display: block !important; }
+  .d-xl-none { display: none !important; }
 }
-
-.d-none { display: none !important; }
-.d-block { display: block !important; }
-.d-flex { display: flex !important; }
 
 @media (min-width: 768px) {
   .d-none.d-md-block { display: block !important; }
@@ -430,7 +436,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Video group wrapper */
 #first-section .content .video-group {
-  width: 50%;
+  width: 60%;
   height: 100%;
 }
 
@@ -449,54 +455,50 @@ img { max-width: 100%; height: auto; display: block; }
   cursor: pointer;
 }
 
-/* Override padding for hero video */
+/* Override padding for hero video — the source PNG canvas is a 1:1
+   square, so a square box (padding-top:100%) renders it at full scale
+   with no letterboxing, matching the real site's larger hero photo. */
 #first-section .content .video-group #home-video-caller.video-caller {
-  padding-top: 75%;
+  padding-top: 100%;
 }
 
 .video-caller:hover { transform: scale(1.02); }
 
-/* Play button */
-.play-btn {
-  position: absolute;
-  width: 44px;
-  height: 44px;
-  top: calc(50% - 22px);
-  left: calc(50% - 22px);
-  z-index: 5;
-  transition: transform 0.2s ease-in;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.play-btn:hover { transform: scale(1.15); }
-
-.play-btn::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 9px 0 9px 16px;
-  border-color: transparent transparent transparent #ffffff;
-  margin-left: 3px;
-}
-
 /* ==========================================
    TICKER STRIP
    ========================================== */
+/* Pulled up with a negative margin so the crossing bands pass behind
+   the bottom of the hero burger photo instead of sitting in empty
+   space below it (matches the real site's overlapping "X" look). */
 .tickers {
   position: relative;
   width: 100%;
-  overflow: hidden;
-  height: 450px;
+  /* No overflow clipping here at all — see why below. html/body already
+     have overflow-x:hidden (existing rule elsewhere in this file), which
+     is what actually stops the 160%-wide ribbons from causing a page
+     scrollbar; that's enough on its own.
+     Do NOT set overflow-x:hidden here with overflow-y:visible — per the
+     CSS spec, when one axis is non-visible, an axis left as "visible"
+     computes to "auto" instead, which STILL creates a scroll/clip
+     container. That combination was tried and didn't actually fix
+     anything, because it still vertically clipped the box exactly like
+     overflow:hidden did.
+     The real bug: .ticker-container.first sits nearer the top edge
+     (top:90px) and .second sits nearer the bottom edge (bottom:90px) of
+     this 400px-tall box. Once rotated, each ribbon drifts toward its
+     nearer edge and — if this box clips vertically at all — gets cut
+     off well before reaching the screen's right edge on wide viewports.
+     That's a vertical clip, not a content-length problem, and it only
+     shows on the side each ribbon tilts toward its nearer edge. True
+     fix: don't clip this box's own overflow at all. */
+  height: 400px;
+  margin-top: -280px;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* Brand ticker variant (short) */
-.tickers.brand-ticker { height: 72px; }
+.tickers.brand-ticker { height: 72px; margin-top: 0; }
 
 .tickers.brand-ticker .ticker-container {
   margin-bottom: 0;
@@ -509,9 +511,9 @@ img { max-width: 100%; height: auto; display: block; }
   position: absolute;
   display: flex;
   align-items: center;
-  height: 72px;
-  width: 120%;
-  left: -10%;
+  height: 76px;
+  width: 160%;
+  left: -30%;
   background: #fff;
   box-shadow: 0 0 4px rgba(26, 32, 33, 0.1);
   padding: 10px 0;
@@ -520,64 +522,75 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Positioned variants */
 .ticker-container.first {
-  top: 60px;
+  top: 90px;
   transform: rotate(-7.63deg);
 }
 
 .ticker-container.second {
-  bottom: 60px;
+  bottom: 90px;
   transform: rotate(7.63deg);
 }
 
+/* Single flat track animated with translateX(0) -> translateX(-1/10),
+   i.e. exactly one repeated-set-width out of the 10 identical copies in
+   the HTML. Looping by one set is what makes the wrap invisible (set 11
+   would look identical to set 1) — but it's only gapless if the
+   ticker-container's visible width never exceeds the width of the
+   REMAINING 9 copies. 6 copies (previous version) was not enough on
+   ultra-wide viewports: the visible viewport (130% of .tickers, itself
+   100vw) could exceed 5 set-widths, so once translated the trailing
+   edge ran out of content and showed blank track on the right. 10
+   copies + a wider 160% bleed gives a much larger safety margin, same
+   speed as before since the per-cycle distance (one set width) and
+   duration are unchanged. */
 .scroll-ticker {
   display: flex;
   align-items: center;
   width: max-content;
+  animation: ticker-scroll 24s linear infinite;
+}
+
+.ticker-container.second .scroll-ticker {
+  animation-direction: reverse;
 }
 
 .ticker-group {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  animation: scroll1 15s linear -15s infinite;
-}
-
-.ticker-container .ticker-group:nth-child(2) {
-  animation: scroll2 15s linear -7.5s infinite;
 }
 
 .burger-group {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   color: #000;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 24px;
-  padding: 0 30px;
+  padding: 0 26px;
 }
 
 .burger-img {
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .ticker-text {
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 800;
   color: #000;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
-@keyframes scroll1 {
+@keyframes ticker-scroll {
   from { transform: translateX(0); }
-  to   { transform: translateX(-100%); }
-}
-@keyframes scroll2 {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-200%); }
+  to   { transform: translateX(-10%); }
 }
 
 /* ==========================================
@@ -840,11 +853,13 @@ img { max-width: 100%; height: auto; display: block; }
 
 #home-products-section .content .product-group {
   position: relative;
-  height: 100%;
   width: 100%;
+  aspect-ratio: 4 / 3;
   background: #000;
   border-radius: 198px;
-  padding: 60px 40px 80px;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
 }
 
 #home-products-section .content .product-group::after {
@@ -858,31 +873,38 @@ img { max-width: 100%; height: auto; display: block; }
   background: url(images/bg-icons.png) repeat-y;
   opacity: 0.06;
   pointer-events: none;
+  z-index: 0;
 }
 
-.product-nav-content {
+.product-inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  order: 2;
+  padding: 50px 30px 50px 70px;
 }
 
-.product-navigation {
-  width: 100%;
+/* Circular thumbnail navigation strip */
+.product-nav-content {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 60px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  gap: 8px;
 }
-.product-navigation::-webkit-scrollbar { display: none; }
+
+.product-navigation {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 
 .nav-icon {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   background: rgba(255,255,255,0.1);
   border-radius: 50%;
   display: flex;
@@ -894,59 +916,86 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .nav-icon:hover { background: rgba(255,255,255,0.2); }
 
-.product-nav-item {
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.5);
-  cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 25px;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
-  letter-spacing: 1px;
-}
-
-.product-nav-item:hover { color: #fff; }
-
-.product-nav-item.active {
-  color: #000;
-  background-color: #fff;
-  border-color: #fff;
-}
-
-/* Product images */
-.product-images {
-  width: 100%;
+.navigation-group {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 18px;
+  max-width: 480px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 10px 4px;
+}
+.navigation-group::-webkit-scrollbar { display: none; }
+
+.tab {
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #f2ad00;
+  transform: translateY(-50%);
+  transition: left 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.nav-image {
   position: relative;
-  min-height: 400px;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.nav-image img { width: 100%; height: 100%; object-fit: cover; }
+.nav-image:hover { opacity: 0.75; }
+.nav-image.active { opacity: 1; }
+
+/* Image + description row */
+.product-details {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.product-images {
+  position: relative;
+  width: clamp(320px, 30vw, 460px);
+  height: clamp(320px, 30vw, 460px);
+  flex-shrink: 0;
 }
 
 .product-image-group {
   position: absolute;
-  width: 100%;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transform: scale(0.92) rotate(-8deg);
+  transform: scale(0.92);
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
 }
 
 .product-image-group.active {
   opacity: 1;
   visibility: visible;
-  transform: scale(1) rotate(0deg);
+  transform: scale(1);
 }
 
 .product-image {
   position: relative;
-  width: 320px;
-  height: 320px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 15px 40px rgba(0,0,0,0.5);
@@ -962,37 +1011,24 @@ img { max-width: 100%; height: auto; display: block; }
 
 .product-image-group.active .product-image img:hover { transform: scale(1.05); }
 
-.product-index {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  font-size: clamp(60px, 8vw, 100px);
-  font-weight: 800;
-  line-height: 0.8;
-  color: rgba(255,255,255,0.06);
-  font-style: italic;
-  pointer-events: none;
-}
-
 .product-infos {
   position: relative;
-  width: 100%;
+  flex: 1;
+  min-width: 200px;
+  min-height: 220px;
   z-index: 1;
-  min-height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-top: 40px;
 }
 
 .product-info-group {
   position: absolute;
+  inset: 0;
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
-  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .product-info-group.active {
@@ -1003,19 +1039,68 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .product-name {
-  font-size: clamp(24px, 3vw, 36px);
+  font-size: clamp(26px, 3.2vw, 42px);
   font-weight: 900;
   line-height: 1.1;
   color: #fff;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .product-desc {
-  font-size: 15px;
+  font-size: 16px;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.8;
+  max-width: 460px;
+}
+
+.product-list {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.product-list:empty { display: none; margin-top: 0; }
+
+.product-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+
+.icon-container {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #f2ad00;
+  display: flex;
+}
+.icon-container svg { width: 100%; height: 100%; }
+
+/* Fries decorative panel, bleeding to the box's rounded right edge */
+.product-right {
+  position: relative;
+  z-index: 1;
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.product-right .image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 460px;
+}
+
+.product-right .image-container img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ==========================================
@@ -1023,7 +1108,27 @@ img { max-width: 100%; height: auto; display: block; }
    ========================================== */
 #home-contact-section { margin: 80px 0; }
 
-#home-contact-section .home-title { color: #1a2021; }
+#home-contact-section .home-title { color: #1a2021; margin-bottom: 32px; }
+
+/* Embedded Google Map, styled as the same stadium/pill shape used
+   elsewhere on the site (border-radius larger than half the box's
+   short side gets clamped to a perfect capsule automatically). */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 42vw, 560px);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 60px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
 
 .contact-group {
   display: flex;
@@ -1117,10 +1222,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 .insta-collage-bg {
   position: absolute;
-  left: 50%;
+  left: 0;
   top: 0;
-  transform: translateX(-50%);
-  width: 56%;
+  width: 100%;
   height: 100%;
   border-radius: 90px;
   background-color: #0c0c0c;
@@ -1327,54 +1431,6 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .footer-codio a { color: #f2ad00; font-weight: 700; }
-
-/* ==========================================
-   VIDEO MODAL
-   ========================================== */
-.video-overlay-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.92);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s;
-}
-
-.video-overlay-modal.active { opacity: 1; visibility: visible; }
-
-.video-modal-container {
-  width: 90%;
-  max-width: 900px;
-  aspect-ratio: 16/9;
-  background: #000;
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-}
-
-.video-modal-close {
-  position: absolute;
-  top: -44px;
-  right: 0;
-  color: #fff;
-  font-size: 32px;
-  cursor: pointer;
-  font-weight: 300;
-  transition: color 0.2s ease;
-}
-
-.video-modal-close:hover { color: #f2ad00; }
-.video-modal-container iframe,
-.video-modal-container video {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
 
 /* ==========================================
    ABOUT PAGE
@@ -1634,16 +1690,25 @@ img { max-width: 100%; height: auto; display: block; }
   .detail-container { border-radius: 60px; }
   .detail-container::before { border-radius: 60px; }
   .inner-group::before { border-radius: 50px; }
-  #home-products-section .content .product-group { border-radius: 60px; }
+  #home-products-section .content .product-group { border-radius: 60px; flex-direction: column; aspect-ratio: unset; height: auto; }
+  .product-inner { padding: 40px 30px; flex: none; width: 100%; display: block; }
+  .product-details { flex-direction: column; text-align: center; }
+  .product-infos { width: 100%; min-width: 0; }
+  .product-info-group { align-items: center; }
+  .product-desc { max-width: 100%; }
+  .product-list-item { justify-content: center; }
+  .product-right { width: 100%; order: 2; }
+  .product-right .image-container { min-height: 220px; }
 }
 
 @media (max-width: 600px) {
   #first-section .content .video-group { width: 100%; }
   .home-title { font-size: 32px; line-height: 48px; }
   .detail-container { border-radius: 30px; }
-  .product-image { width: 240px; height: 240px; }
+  .product-images { width: 240px; height: 240px; }
+  .navigation-group { max-width: 260px; }
   .inner-content { padding: 24px; }
-  .insta-collage-bg { width: 88%; border-radius: 50px; }
+  .insta-collage-bg { border-radius: 50px; }
   .image-container { width: 190px; height: 190px; border-radius: 16px; }
   .multi-group { gap: 12px; margin: 0 6px; }
   .single-group { margin: 0 6px; }

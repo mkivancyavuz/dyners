@@ -211,88 +211,71 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 4. Product Swiper Carousel (Home Page)
-  const navItems = document.querySelectorAll(".product-nav-item");
+  const navImages = document.querySelectorAll(".nav-image");
   const imageGroups = document.querySelectorAll(".product-image-group");
   const infoGroups = document.querySelectorAll(".product-info-group");
+  const productTab = document.querySelector(".tab");
+  const prodPrev = document.getElementById("prod-prev");
+  const prodNext = document.getElementById("prod-next");
 
-  if (navItems.length > 0) {
-    navItems.forEach(item => {
-      item.addEventListener("click", () => {
-        const targetIndex = item.getAttribute("data-index");
+  if (navImages.length > 0) {
+    const totalProducts = navImages.length;
 
-        // Remove active class from all navigation items
-        navItems.forEach(nav => nav.classList.remove("active"));
-        // Add active class to clicked item
-        item.classList.add("active");
-
-        // Switch active images
-        imageGroups.forEach(imgGroup => {
-          if (imgGroup.getAttribute("data-index") === targetIndex) {
-            imgGroup.classList.add("active");
-          } else {
-            imgGroup.classList.remove("active");
-          }
-        });
-
-        // Switch active descriptions
-        infoGroups.forEach(infoGroup => {
-          if (infoGroup.getAttribute("data-index") === targetIndex) {
-            infoGroup.classList.add("active");
-          } else {
-            infoGroup.classList.remove("active");
-          }
-        });
-      });
-    });
-  }
-
-// 5. Teaser Video Player Modal
-const videoCaller = document.getElementById("home-video-caller");
-if (videoCaller) {
-  // Add play button element inside if not present
-  if (!videoCaller.querySelector(".play-btn")) {
-    const playBtn = document.createElement("div");
-    playBtn.className = "play-btn";
-    videoCaller.appendChild(playBtn);
-  }
-
-  videoCaller.addEventListener("click", () => {
-    // Gourmet stock burger video (Mixkit)
-    const videoUrl = "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-gourmet-hamburger-4433-large.mp4";
-
-    const modal = document.createElement("div");
-    modal.className = "video-overlay-modal";
-    modal.innerHTML = `
-      <div class="video-modal-container">
-        <span class="video-modal-close">&times;</span>
-        <video src="${videoUrl}" autoplay controls style="width:100%; height:100%; object-fit:cover;"></video>
-      </div>
-    `;
-
-    document.body.appendChild(modal);
-    // Trigger enter transition (needs a frame so CSS transition fires)
-    requestAnimationFrame(() => modal.classList.add("active"));
-
-    // Lock scroll
-    document.body.style.overflow = "hidden";
-
-    // Close handlers
-    const closeModal = () => {
-      modal.classList.remove("active");
-      setTimeout(() => {
-        modal.remove();
-        document.body.style.overflow = "";
-      }, 300);
+    // Slide the orange ring (.tab) so it sits behind the active thumbnail
+    const positionTab = (activeThumb) => {
+      if (!productTab || !activeThumb) return;
+      const ringPadding = (activeThumb.offsetWidth - productTab.offsetWidth) / 2;
+      productTab.style.left = `${activeThumb.offsetLeft + ringPadding}px`;
     };
 
-    modal.querySelector(".video-modal-close").addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-  });
-}
+    const selectProduct = (index) => {
+      const targetIndex = String(index);
+      let activeThumb = null;
 
-  // 6. Scroll Parallax Assembly Engine (Home Page)
+      navImages.forEach(thumb => {
+        const match = thumb.getAttribute("data-index") === targetIndex;
+        thumb.classList.toggle("active", match);
+        if (match) activeThumb = thumb;
+      });
+      imageGroups.forEach(g => g.classList.toggle("active", g.getAttribute("data-index") === targetIndex));
+      infoGroups.forEach(g => g.classList.toggle("active", g.getAttribute("data-index") === targetIndex));
+
+      if (activeThumb) {
+        activeThumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        positionTab(activeThumb);
+      }
+    };
+
+    navImages.forEach(thumb => {
+      thumb.addEventListener("click", () => selectProduct(thumb.getAttribute("data-index")));
+    });
+
+    const getCurrentIndex = () => {
+      const active = document.querySelector(".nav-image.active");
+      return active ? parseInt(active.getAttribute("data-index"), 10) : 1;
+    };
+
+    if (prodPrev) {
+      prodPrev.addEventListener("click", () => {
+        const current = getCurrentIndex();
+        selectProduct(current === 1 ? totalProducts : current - 1);
+      });
+    }
+    if (prodNext) {
+      prodNext.addEventListener("click", () => {
+        const current = getCurrentIndex();
+        selectProduct(current === totalProducts ? 1 : current + 1);
+      });
+    }
+
+    // Layout (thumbnail offsetLeft) isn't reliable until images/fonts have
+    // settled, so position the ring on load and once more shortly after.
+    const initTab = () => positionTab(document.querySelector(".nav-image.active"));
+    window.addEventListener("load", initTab);
+    setTimeout(initTab, 100);
+  }
+
+  // 5. Scroll Parallax Assembly Engine (Home Page)
   const parallaxSection = document.getElementById("parallax-section");
   if (parallaxSection) {
     const pImages = parallaxSection.querySelectorAll(".p-image");

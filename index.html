@@ -122,9 +122,89 @@
       <!-- ==========================================
            TICKER STRIP
            ========================================== -->
+      <!-- Each track repeats the 7-item set 10x (not just 2x or 6x). This
+           matters for the seamless-loop math: with a translateX(-100%/N)
+           track, the container's visible width must never exceed
+           (N-1) single-set-widths, or the trailing edge briefly shows
+           blank track — which is exactly the "gaps" bug. 6 copies still
+           showed a gap on the right edge of ultra-wide screens; 10
+           copies plus a wider 160% container bleed gives a much larger
+           safety margin. -->
       <div class="tickers">
         <div class="ticker-container first" style="transform: rotate(-7.63deg)">
           <div class="scroll-ticker">
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
             <div class="ticker-group">
               <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
               <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
@@ -147,6 +227,78 @@
         </div>
         <div class="ticker-container second" style="transform: rotate(7.63deg)">
           <div class="scroll-ticker">
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
+            <div class="ticker-group">
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/cheese-burger.png" /><div class="ticker-text">CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-cheeseburger.png" /><div class="ticker-text">DOUBLE CHEESEBURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/lokum.png" /><div class="ticker-text">LOKUM BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/chicken.png" /><div class="ticker-text">ÇITIR TAVUK BURGER</div></div>
+              <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/sosis.png" /><div class="ticker-text">SOSİS BURGER</div></div>
+            </div>
             <div class="ticker-group">
               <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/hamburger.png" /><div class="ticker-text">HAMBURGER</div></div>
               <div class="burger-group"><img alt="" class="burger-img" src="images/transparent/double-hamburger.png" /><div class="ticker-text">DOUBLE HAMBURGER</div></div>
@@ -250,69 +402,140 @@
             <div class="col-12 col-xl-10 offset-xl-1">
               <div class="content">
                 <div class="product-group">
+                  <div class="product-inner">
 
-                  <!-- Navigation Tabs -->
-                  <div class="product-nav-content">
-                    <div class="product-navigation">
-                      <div class="nav-icon prev-icon" id="prod-prev">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7 2L3 6l4 4" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </div>
-                      <span class="product-nav-item active" data-index="1">SMASH BURGER</span>
-                      <span class="product-nav-item" data-index="2">SMASH BURGER XL</span>
-                      <span class="product-nav-item" data-index="3">SMASH BURGER XXL</span>
-                      <span class="product-nav-item" data-index="4">HAMBURGER</span>
-                      <span class="product-nav-item" data-index="5">DOUBLE HAMBURGER</span>
-                      <span class="product-nav-item" data-index="6">CHEESEBURGER</span>
-                      <span class="product-nav-item" data-index="7">DOUBLE CHEESEBURGER</span>
-                      <span class="product-nav-item" data-index="8">LOKUM BURGER</span>
-                      <span class="product-nav-item" data-index="9">ÇITIR TAVUK BURGER</span>
-                      <span class="product-nav-item" data-index="10">SOSİS BURGER</span>
-                      <span class="product-nav-item" data-index="11">MARSVİÇ</span>
-                      <div class="nav-icon next-icon" id="prod-next">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M5 2l4 4-4 4" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <!-- Circular Thumbnail Navigation -->
+                    <div class="product-nav-content">
+                      <div class="product-navigation">
+                        <div class="nav-icon prev-icon" id="prod-prev">
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7 2L3 6l4 4" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="navigation-group">
+                          <div class="tab"></div>
+                          <div class="nav-image active" data-index="1"><img src="images/smash-burger.jpg" alt="Smash Burger" /></div>
+                          <div class="nav-image" data-index="2"><img src="images/smash-burger-xl.jpg" alt="Smash Burger XL" /></div>
+                          <div class="nav-image" data-index="3"><img src="images/smash-burger-xxl.jpg" alt="Smash Burger XXL" /></div>
+                          <div class="nav-image" data-index="4"><img src="images/hamburgerr.jpg" alt="Hamburger" /></div>
+                          <div class="nav-image" data-index="5"><img src="images/double-hamburger.jpg" alt="Double Hamburger" /></div>
+                          <div class="nav-image" data-index="6"><img src="images/cheeseburger.jpg" alt="Cheeseburger" /></div>
+                          <div class="nav-image" data-index="7"><img src="images/double-cheeseburger.jpg" alt="Double Cheeseburger" /></div>
+                          <div class="nav-image" data-index="8"><img src="images/beef-tenderloin.jpg" alt="Lokum Burger" /></div>
+                          <div class="nav-image" data-index="9"><img src="images/chicken-burger.jpg" alt="Çıtır Tavuk Burger" /></div>
+                          <div class="nav-image" data-index="10"><img src="images/sausage-burger.jpg" alt="Sosis Burger" /></div>
+                          <div class="nav-image" data-index="11"><img src="images/marsvic.jpg" alt="Marsviç" /></div>
+                        </div>
+                        <div class="nav-icon next-icon" id="prod-next">
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M5 2l4 4-4 4" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- Product Images -->
-                  <div class="product-images">
-                    <div class="product-image-group active" data-index="1"><div class="product-index">01</div><div class="product-image"><img src="images/smash-burger.jpg" alt="Smash Burger" /></div></div>
-                    <div class="product-image-group" data-index="2"><div class="product-index">02</div><div class="product-image"><img src="images/smash-burger-xl.jpg" alt="Smash Burger XL" /></div></div>
-                    <div class="product-image-group" data-index="3"><div class="product-index">03</div><div class="product-image"><img src="images/smash-burger-xxl.jpg" alt="Smash Burger XXL" /></div></div>
-                    <div class="product-image-group" data-index="4"><div class="product-index">04</div><div class="product-image"><img src="images/hamburgerr.jpg" alt="Hamburger" /></div></div>
-                    <div class="product-image-group" data-index="5"><div class="product-index">05</div><div class="product-image"><img src="images/double-hamburger.jpg" alt="Double Hamburger" /></div></div>
-                    <div class="product-image-group" data-index="6"><div class="product-index">06</div><div class="product-image"><img src="images/cheeseburger.jpg" alt="Cheeseburger" /></div></div>
-                    <div class="product-image-group" data-index="7"><div class="product-index">07</div><div class="product-image"><img src="images/double-cheeseburger.jpg" alt="Double Cheeseburger" /></div></div>
-                    <div class="product-image-group" data-index="8"><div class="product-index">08</div><div class="product-image"><img src="images/beef-tenderloin.jpg" alt="Lokum Burger" /></div></div>
-                    <div class="product-image-group" data-index="9"><div class="product-index">09</div><div class="product-image"><img src="images/chicken-burger.jpg" alt="Çıtır Tavuk Burger" /></div></div>
-                    <div class="product-image-group" data-index="10"><div class="product-index">10</div><div class="product-image"><img src="images/sausage-burger.jpg" alt="Sosis Burger" /></div></div>
-                    <div class="product-image-group" data-index="11"><div class="product-index">11</div><div class="product-image"><img src="images/marsvic.jpg" alt="Marsviç" /></div></div>
-                  </div>
-
-                  <!-- Product Descriptions -->
-                  <div class="product-infos">
-                    <div class="product-info-group active" data-index="1"><h3 class="product-name">SMASH BURGER</h3><p class="product-desc" data-translate="prod_smash_desc">Smash Köfte - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile servis edilir.</p></div>
-                    <div class="product-info-group" data-index="2"><h3 class="product-name">SMASH BURGER XL</h3><p class="product-desc" data-translate="prod_smash_xl_desc">2 adet Smash Köftesi - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile servis edilir.</p></div>
-                    <div class="product-info-group" data-index="3"><h3 class="product-name">SMASH BURGER XXL</h3><p class="product-desc" data-translate="prod_smash_xxl_desc">3 adet Smash Köftesi - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile servis edilir.</p></div>
-                    <div class="product-info-group" data-index="4"><h3 class="product-name">HAMBURGER</h3><p class="product-desc" data-translate="prod_hamburger_desc">Hamburger Köftesi - Domates - Marul - Turşu - Ketçap - Mayonez. Patates Kızartması ile servis edilir.</p></div>
-                    <div class="product-info-group" data-index="5"><h3 class="product-name">DOUBLE HAMBURGER</h3><p class="product-desc" data-translate="prod_double_hamburger_desc">2 adet 100gr hamburger köftesi ile. Patates Kızartması ile servis edilir.</p></div>
-                    <div class="product-info-group" data-index="6"><h3 class="product-name">CHEESEBURGER</h3><p class="product-desc" data-translate="prod_cheeseburger_desc">Hamburger Köftesi - Cheddar Peyniri - Domates - Marul - Turşu - Ketçap - Mayonez.</p></div>
-                    <div class="product-info-group" data-index="7"><h3 class="product-name">DOUBLE CHEESEBURGER</h3><p class="product-desc" data-translate="prod_double_cheeseburger_desc">2 adet 100gr hamburger köftesi - Çift Cheddar Peyniri. Patates Kızartması ile servis edilir.</p></div>
-                    <div class="product-info-group" data-index="8"><h3 class="product-name">LOKUM BURGER</h3><p class="product-desc" data-translate="prod_lokum_desc">Bonfile Lokum Et - Karamelize Soğan - Cheddar Peyniri - Hardal. Patates Kızartması ile servis edilir.</p></div>
-                    <div class="product-info-group" data-index="9"><h3 class="product-name">ÇITIR TAVUK BURGER</h3><p class="product-desc" data-translate="prod_chicken_desc">Çıtır Tavuk - Marul - Cheddar Peyniri - Mayonez. Patates Kızartması ile servis edilir.</p></div>
-                    <div class="product-info-group" data-index="10"><h3 class="product-name">SOSİS BURGER</h3><p class="product-desc" data-translate="prod_sosis_desc">Özel Hamburger Sosisi - Cheddar Peyniri - Marul - Mayonez. Patates Kızartması ile servis edilir.</p></div>
-                    <div class="product-info-group" data-index="11"><h3 class="product-name">MARSVİÇ</h3><p class="product-desc" data-translate="prod_marsvic_desc">Jülyen Kesim Hamburger Sosisi - Cheddar Peyniri - Marul - Mayonez. Patates Kızartması ile servis edilir.</p></div>
-                  </div>
-
-                  <div style="display:flex;justify-content:flex-end;margin-top:40px;padding:0 40px 40px;">
-                    <a href="menuler.html" class="mnk-button" data-translate="nav_menu">
-                      <div class="btn-icon">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="product-details">
+                      <!-- Product Images -->
+                      <div class="product-images">
+                        <div class="product-image-group active" data-index="1"><div class="product-image"><img src="images/smash-burger.jpg" alt="Smash Burger" /></div></div>
+                        <div class="product-image-group" data-index="2"><div class="product-image"><img src="images/smash-burger-xl.jpg" alt="Smash Burger XL" /></div></div>
+                        <div class="product-image-group" data-index="3"><div class="product-image"><img src="images/smash-burger-xxl.jpg" alt="Smash Burger XXL" /></div></div>
+                        <div class="product-image-group" data-index="4"><div class="product-image"><img src="images/hamburgerr.jpg" alt="Hamburger" /></div></div>
+                        <div class="product-image-group" data-index="5"><div class="product-image"><img src="images/double-hamburger.jpg" alt="Double Hamburger" /></div></div>
+                        <div class="product-image-group" data-index="6"><div class="product-image"><img src="images/cheeseburger.jpg" alt="Cheeseburger" /></div></div>
+                        <div class="product-image-group" data-index="7"><div class="product-image"><img src="images/double-cheeseburger.jpg" alt="Double Cheeseburger" /></div></div>
+                        <div class="product-image-group" data-index="8"><div class="product-image"><img src="images/beef-tenderloin.jpg" alt="Lokum Burger" /></div></div>
+                        <div class="product-image-group" data-index="9"><div class="product-image"><img src="images/chicken-burger.jpg" alt="Çıtır Tavuk Burger" /></div></div>
+                        <div class="product-image-group" data-index="10"><div class="product-image"><img src="images/sausage-burger.jpg" alt="Sosis Burger" /></div></div>
+                        <div class="product-image-group" data-index="11"><div class="product-image"><img src="images/marsvic.jpg" alt="Marsviç" /></div></div>
                       </div>
-                      Tüm Menü
-                    </a>
+
+                      <!-- Product Descriptions -->
+                      <div class="product-infos">
+                        <div class="product-info-group active" data-index="1">
+                          <div class="product-name">SMASH BURGER</div>
+                          <div class="product-desc" data-translate="prod_smash_desc">Smash Köfte - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile</div>
+                          <ul class="list-style-none product-list"></ul>
+                        </div>
+                        <div class="product-info-group" data-index="2">
+                          <div class="product-name">SMASH BURGER XL</div>
+                          <div class="product-desc" data-translate="prod_smash_xl_desc">2 adet Smash Köftesi - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile</div>
+                          <ul class="list-style-none product-list"></ul>
+                        </div>
+                        <div class="product-info-group" data-index="3">
+                          <div class="product-name">SMASH BURGER XXL</div>
+                          <div class="product-desc" data-translate="prod_smash_xxl_desc">3 adet Smash Köftesi - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile</div>
+                          <ul class="list-style-none product-list"></ul>
+                        </div>
+                        <div class="product-info-group" data-index="4">
+                          <div class="product-name">HAMBURGER</div>
+                          <div class="product-desc" data-translate="prod_hamburger_desc">Hamburger Köftesi - Domates - Marul - Turşu - Ketçap - Mayonez. Patates Kızartması ile</div>
+                          <ul class="list-style-none product-list">
+                            <li class="product-list-item"><div class="icon-container"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div><span>100 gr hamburger köftesi</span></li>
+                          </ul>
+                        </div>
+                        <div class="product-info-group" data-index="5">
+                          <div class="product-name">DOUBLE HAMBURGER</div>
+                          <div class="product-desc" data-translate="prod_double_hamburger_desc">Hamburger Köftesi - Domates - Marul - Turşu - Ketçap - Mayonez. Patates Kızartması ile</div>
+                          <ul class="list-style-none product-list">
+                            <li class="product-list-item"><div class="icon-container"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div><span>2 adet 100gr hamburger köftesi ile</span></li>
+                            <li class="product-list-item"><div class="icon-container"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div><span>90 gr Hamburger Ekmeği</span></li>
+                          </ul>
+                        </div>
+                        <div class="product-info-group" data-index="6">
+                          <div class="product-name">CHEESEBURGER</div>
+                          <div class="product-desc" data-translate="prod_cheeseburger_desc">Hamburger Köftesi - Cheddar Peyniri - Domates - Marul - Turşu - Ketçap - Mayonez. Patates Kızartması ile</div>
+                          <ul class="list-style-none product-list">
+                            <li class="product-list-item"><div class="icon-container"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div><span>100 gr hamburger köftesi</span></li>
+                          </ul>
+                        </div>
+                        <div class="product-info-group" data-index="7">
+                          <div class="product-name">DOUBLE CHEESEBURGER</div>
+                          <div class="product-desc" data-translate="prod_double_cheeseburger_desc">Hamburger Köftesi - Cheddar Peyniri - Domates - Marul - Turşu - Ketçap - Mayonez. Patates Kızartması ile</div>
+                          <ul class="list-style-none product-list">
+                            <li class="product-list-item"><div class="icon-container"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div><span>2 adet 100gr hamburger köftesi ile</span></li>
+                            <li class="product-list-item"><div class="icon-container"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div><span>90 gr Hamburger Ekmeği</span></li>
+                          </ul>
+                        </div>
+                        <div class="product-info-group" data-index="8">
+                          <div class="product-name">LOKUM BURGER</div>
+                          <div class="product-desc" data-translate="prod_lokum_desc">Bonfile Lokum Et - Karamelize Soğan - Cheddar Peyniri - Hardal. Patates Kızartması ile</div>
+                          <ul class="list-style-none product-list">
+                            <li class="product-list-item"><div class="icon-container"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div><span>100 gr ve 150gr bonfile lokum eti seçeneği</span></li>
+                          </ul>
+                        </div>
+                        <div class="product-info-group" data-index="9">
+                          <div class="product-name">ÇITIR TAVUK BURGER</div>
+                          <div class="product-desc" data-translate="prod_chicken_desc">Çıtır Tavuk - Marul - Cheddar Peyniri - Mayonez. Patates Kızartması ile</div>
+                          <ul class="list-style-none product-list"></ul>
+                        </div>
+                        <div class="product-info-group" data-index="10">
+                          <div class="product-name">SOSİS BURGER</div>
+                          <div class="product-desc" data-translate="prod_sosis_desc">Sosis - Cheddar Peyniri - Marul - Mayonez. Patates Kızartması ile</div>
+                          <ul class="list-style-none product-list"></ul>
+                        </div>
+                        <div class="product-info-group" data-index="11">
+                          <div class="product-name">MARSVİÇ</div>
+                          <div class="product-desc" data-translate="prod_marsvic_desc">Jülyen Kesim Sosis - Cheddar Peyniri - Marul - Mayonez. Patates Kızartması ile</div>
+                          <ul class="list-style-none product-list"></ul>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
 
+                  <!-- Fries decorative panel (bleeds to the rounded right edge) -->
+                  <div class="product-right">
+                    <div class="image-container">
+                      <img alt="" class="d-none d-xl-block" src="images/chips.png" />
+                      <img alt="" class="d-block d-xl-none" src="images/chips-bottom.png" />
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display:flex;justify-content:flex-end;margin-top:32px;">
+                  <a href="menuler.html" class="mnk-button" data-translate="nav_menu">
+                    <div class="btn-icon">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Tüm Menü
+                  </a>
                 </div>
               </div>
             </div>
@@ -328,6 +551,16 @@
           <div class="row">
             <div class="col-12">
               <div class="home-title" data-translate="contact_title">BİZE ULAŞIN</div>
+
+              <div class="map-container">
+                <iframe
+                  src="https://www.google.com/maps?q=40.9960488,39.7619633&z=14&output=embed"
+                  width="100%" height="100%" style="border:0;"
+                  allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title="Dyners Konum"></iframe>
+              </div>
+
               <div class="row">
                 <div class="col-12 col-xl-10 offset-xl-1">
                   <div class="contact-group">
