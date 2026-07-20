@@ -35,7 +35,7 @@
             <!-- Logo -->
             <div class="logo-col">
               <a href="index.html">
-                <img alt="logo" width="100" height="34" src="https://cdn.datanuvis.com/6a482a963c88bc7d5488a1a4/media/non-album/5174aa31-d113-4d49-8e73-f3c4fc763868.svg" style="color: transparent;" />
+                <img alt="logo" width="100" height="35" src="https://cdn.datanuvis.com/6a482a963c88bc7d5488a1a4/media/non-album/5174aa31-d113-4d49-8e73-f3c4fc763868.svg" style="color: transparent;" />
               </a>
             </div>
 
@@ -68,7 +68,7 @@
       <div class="menu-container">
         <div class="mobile-content">
           <div class="logo-group">
-            <img alt="logo" width="100" height="34" src="https://cdn.datanuvis.com/6a482a963c88bc7d5488a1a4/media/non-album/5174aa31-d113-4d49-8e73-f3c4fc763868.svg" style="color: transparent;" />
+            <img alt="logo" width="100" height="35" src="https://cdn.datanuvis.com/6a482a963c88bc7d5488a1a4/media/non-album/5174aa31-d113-4d49-8e73-f3c4fc763868.svg" style="color: transparent;" />
           </div>
           <div class="nav-group">
             <ul class="list-style-none">
@@ -325,13 +325,19 @@
         </div>
       </div>
 
+      <!-- Continuous checkerboard "spine" running behind parallax, about,
+           products and contact sections, matching the real site's
+           unbroken background band (rather than separate floating
+           boxes). See .home-spine in style.css. -->
+      <div class="home-spine">
+
       <!-- ==========================================
            PARALLAX — Burger Assembly
            ========================================== -->
       <section id="parallax-section">
         <div class="container-xxl custom-padding">
           <div class="row">
-            <div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+            <div class="col-12 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1">
               <div class="content">
                 <div class="w-content">
                   <div class="burger-title first d-none d-md-block">CHEESE</div>
@@ -556,17 +562,19 @@
             <div class="col-12">
               <div class="home-title" data-translate="contact_title">BİZE ULAŞIN</div>
 
-              <div class="map-container">
-                <iframe
-                  src="https://www.google.com/maps?q=40.9960488,39.7619633&z=14&output=embed"
-                  width="100%" height="100%" style="border:0;"
-                  allowfullscreen="" loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  title="Dyners Konum"></iframe>
+              <div class="map-container-outer">
+                <div class="map-container">
+                  <iframe
+                    src="https://www.google.com/maps?q=40.9960488,39.7619633&z=14&output=embed"
+                    width="100%" height="100%" style="border:0;"
+                    allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Dyners Konum"></iframe>
+                </div>
               </div>
 
               <div class="row">
-                <div class="col-12 col-xl-10 offset-xl-1">
+                <div class="col-12 col-xl-8 offset-xl-2">
                   <div class="contact-group">
                     <ul class="contact-elements list-style-none">
 
@@ -698,6 +706,9 @@
           </div>
         </div>
       </section>
+
+      </div>
+      <!-- /.home-spine -->
 
     </main>
 
