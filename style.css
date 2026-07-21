@@ -665,7 +665,7 @@ img {
   position: absolute;
   display: flex;
   align-items: center;
-  height: 76px;
+  height: 55px;
   width: 160%;
   left: -30%;
   background: #fff;
@@ -726,8 +726,8 @@ img {
 }
 
 .burger-img {
-  width: 56px;
-  height: 56px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
   margin-right: 10px;
   flex-shrink: 0;
@@ -735,7 +735,7 @@ img {
 
 .ticker-text {
   margin-left: 10px;
-  font-size: 21px;
+  font-size: 15px;
   font-weight: 800;
   color: #000;
   letter-spacing: 0.5px;
@@ -973,20 +973,28 @@ img {
   width: 100%;
 }
 
-/* Oval container with bg image */
+/* Oval container with bg image. .inner-group/.inner-content are now
+   absolutely positioned (see below) instead of being in-flow flex
+   children — with align-items:center + a plain height:100% child,
+   the child's height was resolving to exactly match this container's
+   min-height either way, leaving ZERO extra slack for
+   justify-content:space-between to visibly push the button down.
+   Absolute positioning guarantees this container's own height stays
+   pinned to min-height (no in-flow content left to grow it), so the
+   inner layers reliably get real, definite room to work with. */
 .detail-container {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  height: 100%;
-  min-height: 475px;
+  min-height: 520px;
   border-radius: 300px;
-  padding: 20px;
   overflow: hidden;
+  background-color: #000;
 }
 
+/* Opaque black frame layer: covers the background photo completely so
+   the 20px padding ring around .inner-group reads as solid black,
+   while .inner-group itself (the actual "inside") gets the lighter
+   rgb(18,18,18) fill — two distinct tones, frame vs. inside. */
 .detail-container::before {
   content: "";
   position: absolute;
@@ -995,11 +1003,7 @@ img {
   width: 100%;
   height: 100%;
   border-radius: 300px;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+  background: #000;
   z-index: 1;
 }
 
@@ -1012,67 +1016,99 @@ img {
   object-fit: cover;
 }
 
+/* The visible "inside" — rgb(18,18,18), distinct from the pure-black
+   frame ring around it (.detail-container's own background, showing
+   through this 20px inset). Absolutely positioned with a real inset
+   instead of being an in-flow flex child, so its height is always a
+   definite 20px-smaller copy of .detail-container's own (pinned)
+   height — no percentage/flex-stretch ambiguity. */
 .inner-group {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-}
-
-.inner-group::before {
-  content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    140.15deg,
-    rgba(255, 255, 255, 0.4) -145.23%,
-    rgba(255, 255, 255, 0.1) -82.42%
-  );
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  inset: 20px;
+  z-index: 2;
+  background-color: #121212;
   border-radius: 280px;
+  /* Centers .inner-content (which is no longer forced to this box's
+     full height) vertically — this is what actually centers the
+     title in the pill, instead of pinning it to the top. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Real site lays this out as two columns (big left-aligned title on the
+   left, description + button right-aligned on the right) — not a
+   single centered stack like before. */
 .inner-content {
   position: relative;
   z-index: 2;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  padding: 60px 80px;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 20px;
+  flex-direction: row;
+  /* justify-content:space-between (with two fixed-width items) left a
+     huge empty gap between the title and the description instead of
+     giving that space to the description column — which is exactly
+     why the paragraph wrapped to 5 lines instead of the reference's 3.
+     .right-group now grows to fill the remaining width instead. */
+  justify-content: flex-start;
+  /* flex-start (not center): the row's own height is now driven by its
+     tallest child (the title) instead of being forced to the pill's
+     full height, so flex-start here already puts both the title and
+     .right-group's top (the description) at the same starting line —
+     and .inner-group centering this whole row is what centers the
+     title vertically in the pill. */
+  align-items: flex-start;
+  /* Real site's computed value: padding:100px (uniform), not 60px 80px. */
+  padding: 100px;
+  text-align: left;
+  gap: 64px;
 }
 
 .inner-content .title {
-  font-size: clamp(24px, 3vw, 36px);
-  font-weight: 900;
+  /* Real site's computed value: 64px (font-family Catamaran, same as
+     the rest of the site). clamp() keeps it from being 64px on narrow
+     desktop widths where that would overflow the pill; 991px and below
+     the mobile override in the responsive block takes over anyway. */
+  font-size: clamp(32px, 4.5vw, 64px);
+  font-weight: 700;
   color: #fff;
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
+  letter-spacing: 0.15em;
+  line-height: 1.15;
+  max-width: 340px;
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .inner-content .desc {
   font-size: 15px;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.8;
-  max-width: 550px;
+  color: #fff;
+  line-height: 24px;
+  text-align: left;
+  max-width: 700px;
 }
 
 /* Premium Button */
 .mnk-button {
   position: relative;
+  /* Clips the expanding ::before fill circle to the button's own pill
+     shape, and gives .mnk-icon/span a stacking context to sit above
+     that circle (see z-index below). */
+  overflow: hidden;
   width: max-content;
   min-width: 190px;
-  padding: 8px 16px 8px 8px;
+  /* Equal left/right padding (was 8px/16px) so the icon-side and
+     text-side gaps match. */
+  padding: 8px;
   background-color: #000;
   border-radius: 32px;
   display: flex;
   align-items: center;
-  border: none;
+  box-sizing: border-box;
+  /* Transparent border reserves the space up front (border-box means
+     it doesn't shift the button's size either way) — transitioning
+     border-color to black on hover gives the white fill a visible
+     outer edge instead of it just blending into the page. */
+  border: 3px solid transparent;
   box-shadow: none;
   outline: none;
   z-index: 1;
@@ -1085,10 +1121,39 @@ img {
   gap: 12px;
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    color 0.5s ease,
+    border-color 0.5s ease;
 }
 
-.mnk-button .btn-icon {
+/* Pinned at the icon's own left edge and height (36px, same as the
+   icon) — only WIDTH grows on hover, so the white fill stays level
+   with the icon (its top/bottom never exceed the icon's own top/
+   bottom, leaving the same space above/below that the icon already
+   has) and stretches rightward as a pill shape (border-radius: half
+   the height) instead of ballooning into a big circle. */
+.mnk-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  border-radius: 18px;
+  transform: translateY(-50%);
+  transition: width 0.5s ease;
+  z-index: 0;
+}
+
+.mnk-button:hover::before {
+  /* Reaches the button's right inner edge, leaving the same 8px gap
+     there that the icon already keeps on the left. */
+  width: calc(100% - 16px);
+}
+
+.mnk-button .btn-icon,
+.mnk-button .mnk-icon {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -1099,9 +1164,72 @@ img {
   flex-shrink: 0;
 }
 
+/* Solid white circle (not the translucent .btn-icon look) — the icon
+   itself needs to switch to a dark stroke or it'd disappear against
+   its own white background. Lifted above the ::before fill circle via
+   position+z-index so it (and the label span) stay visible on top of
+   it as it expands.
+   The border is reserved here (transparent) rather than only added on
+   hover — adding a border only on hover, even with box-sizing:
+   border-box, was what caused the icon to visibly resize/shift on
+   hover (the reported "left side turns black" glitch and shape
+   change). Now only border-color animates; the box itself never
+   changes size. */
+.mnk-button .mnk-icon {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border: 1.5px solid transparent;
+  transition: border-color 0.5s ease;
+}
+
+.mnk-button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* On hover the whole button inverts (black -> white bg, white -> black
+   text); the icon circle's border turns black so it stays visible
+   against the now-white button instead of blending into it. */
+.mnk-button:hover .mnk-icon {
+  border-color: #000;
+}
+
+/* The reference site's SVG paths ship with an empty stroke="" attribute
+   (color comes from their stylesheet, not inline) — matched that here
+   by emptying the attribute too, so the color needs to come from CSS
+   instead or the icon would render invisible. Dark, since the icon
+   circle itself is solid white. */
+.mnk-icon svg path {
+  stroke: #000;
+}
+
+/* Wraps .desc + the button together (matches real site's markup).
+   Stretches to the pill's full inner height so the description sits
+   near the top and the button drops to the bottom-right corner,
+   matching the reference (button is not right under the paragraph). */
+.right-group {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  justify-content: space-between;
+  align-items: flex-end;
+  /* flex:1 lets this column claim the space .inner-content's
+     justify-content:flex-start now leaves free (instead of that space
+     sitting empty between title and description), capped at 700px to
+     match the reference's column width. */
+  flex: 1;
+  max-width: 700px;
+  gap: 20px;
+}
+
 .mnk-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  /* No instant background-color here on purpose — the ::before circle
+     is what fills the button white, expanding from the icon. */
+  color: #000;
+  border-color: #000;
 }
 
 /* ==========================================
@@ -1412,10 +1540,11 @@ img {
   margin-bottom: 32px;
 }
 
-/* Narrower than the .home-spine band behind it (66.67% vs the spine's
-   83.33%) so the dark checkerboard visibly peeks out on both sides. */
+/* Full width, matching the real Google Maps widget's own wrapper
+   (width:100%, per the DOM the user pasted) — narrowing it to peek the
+   spine around it made the map itself too small. */
 .map-container-outer {
-  width: 32%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -1441,12 +1570,24 @@ img {
 
 /* Light pill so the dark text/icons stay legible sitting on top of the
    dark .home-spine band peeking around it. */
+/* position:relative is what actually matters here, not the z-index
+   value — .home-spine's checkered ::before is absolutely positioned,
+   which (per CSS stacking rules) paints above any plain static-flow
+   content in the same stacking context regardless of DOM order. The
+   map survives because .map-container already has its own
+   position:relative; this pill didn't, so it was rendering completely
+   hidden behind the checkered band (reported as "looks empty"). */
 .contact-group {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0;
-  max-width: 560px;
+  /* Matches the map's own full width (.map-container-outer: 100%)
+     instead of the old narrower 560px cap. */
+  width: 100%;
+  max-width: none;
   margin: 0 auto;
   background: #fff;
   border-radius: 250px;
@@ -1462,11 +1603,17 @@ img {
   width: 100%;
 }
 
+/* justify-content:flex-start (not center): .contact-elements stretches
+   every li to match the tallest one (the hours item, with 2 lines of
+   text). With center, the shorter items (address, phone — 1 line
+   each) had their icon+text centered within that taller stretched
+   box, so their icons ended up sitting lower than the hours item's
+   icon instead of all three lining up at the same level. */
 .element-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   flex: 1 1;
   width: 100%;
@@ -1476,16 +1623,7 @@ img {
   margin-bottom: 50px;
   padding: 20px;
   border-radius: 24px;
-  border: 2px solid transparent;
-  transition:
-    border-color 0.2s ease,
-    transform 0.2s ease;
   cursor: pointer;
-}
-
-.element-group:hover {
-  border-color: rgba(26, 32, 33, 0.08);
-  transform: scale(1.05);
 }
 
 .element-group .icon {
@@ -1503,11 +1641,41 @@ img {
 }
 
 .element-group p,
-.element-group a {
+.element-group a,
+.element-group .element-link {
   font-size: 13px;
-  color: #555;
-  line-height: 1.6;
+  color: #000;
+  /* The address text wraps to 2 lines inside this ONE element —
+     border-bottom only draws once, along the block's own bottom edge,
+     so it only ever showed up after the LAST wrapped line (nothing
+     under the first line), and increasing line-height/margin between
+     separate elements did nothing for the spacing BETWEEN those
+     wrapped lines either. Switched to text-decoration-line:underline,
+     which (unlike border-bottom) draws its own line under every
+     wrapped line individually. line-height now also directly controls
+     the gap between those wrapped lines. */
+  line-height: 30px;
+  text-decoration-line: underline;
+  text-decoration-color: #000;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
   display: block;
+  width: max-content;
+  max-width: 100%;
+  /* No margin between lines: the address's 2 lines are just wrapped
+     text inside one element, spaced only by line-height — the hours
+     item's 2 lines are separate elements, so any margin here adds
+     extra space on top of that same line-height, pushing its 2nd line
+     out of alignment with the address's 2nd (wrapped) line. Keeping
+     both at margin:0 means line-height is the only thing spacing
+     lines in both cases, so they line up. */
+  margin: 0 auto;
+}
+
+.element-group p:last-child,
+.element-group a:last-child,
+.element-group .element-link:last-child {
+  margin-bottom: 0;
 }
 
 .element-group a:hover {
@@ -1518,8 +1686,14 @@ img {
    INSTAGRAM SECTION
    ========================================== */
 #home-insta-section {
+  /* overflow:hidden removed: it was clipping .insta-ticker-wrap's
+     100vw full-bleed breakout back down to this section's own box
+     (which is itself capped at .home-spine's 1400px), which is exactly
+     why gaps kept showing on both sides. .insta-ticker-wrap has its
+     own overflow:hidden to clip the scrolling track, and the global
+     html/body overflow-x:hidden rule (used by the hero ticker too)
+     stops any resulting page-level horizontal scrollbar. */
   position: relative;
-  overflow: hidden;
   width: 100%;
   padding: 60px 0;
 }
@@ -1557,14 +1731,28 @@ img {
    with single-group (1 photo). Flexbox align-items:center naturally
    centers the single photo against the taller stacked pair, which is
    what creates the interlocking brick look.
-   The track holds the full sequence TWICE back to back and animates
-   with one simple translateX(-50%) — that shift is, by construction,
-   exactly the width of one copy, so the loop is mathematically gapless
-   and overlap-free (no dual-timed-track trick that can drift). */
+   Matches the real site's DOM exactly: one repeat unit is 11 photos /
+   7 groups (4 multi + 3 single, ending on a multi-group), no per-image
+   link wrapper, and empty .hover-image divs (no icon/text overlay).
+   The track holds that 11-photo unit 4x back to back and animates with
+   translateX(-25%), i.e. exactly one copy-width out of 4 —
+   mathematically gapless at the content boundary, with a comfortable
+   safety margin so no real gap shows on either side at wide viewports;
+   duration stays 40s since the per-cycle distance (one copy width) is
+   unchanged. */
+/* Full-bleed breakout: this wrap sits inside .home-spine, which is
+   capped at max-width:1400px and centered — without this, the ticker's
+   100% width would only mean 100% of that 1400px band, leaving visible
+   gaps on both sides on wider screens with the photos only flowing in
+   that centered middle strip. left:50% + margin-left:-50vw recenters
+   the element on the viewport itself (ignoring the parent's own
+   width/position), so width:100vw then reaches the true screen edges. */
 .insta-ticker-wrap {
   position: relative;
   z-index: 1;
-  width: 100%;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
   overflow: hidden;
 }
 
@@ -1585,7 +1773,7 @@ img {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-25%);
   }
 }
 
@@ -1668,7 +1856,7 @@ img {
     0 20px,
     20px -20px,
     -20px 0;
-  padding: 40px 0 30px;
+  padding: 12px 0 10px;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -1676,30 +1864,34 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .contact-info-group {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 10px;
-  flex: 1 1;
+  flex: 0 1 380px;
+  max-width: 380px;
 }
 
 .contact-info-group .title {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   color: #1a2021;
-  margin-bottom: 8px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+  text-align: center;
 }
 
 .contact-info-group .group-item {
   font-size: 13px;
   color: #555;
-  line-height: 1.6;
+  line-height: 1.3;
+  text-align: center;
 }
 
 .contact-info-group .group-item:hover {
@@ -1709,24 +1901,38 @@ img {
 .social-media {
   display: flex;
   gap: 12px;
-  margin-top: 10px;
+  margin-top: 2px;
 }
 
 .social-media a {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #1a2021;
-  transition: all 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .social-media a:hover {
-  background: #000;
-  color: #fff;
+  transform: translateY(-2px);
+  opacity: 0.75;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  align-self: center;
+}
+
+.footer-logo img {
+  width: 150px;
+  height: 52px;
+  object-fit: contain;
 }
 
 .footer-bottom-inner {
@@ -1735,6 +1941,7 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  padding: 24px 0;
 }
 
 .footer-bottom .logo-group img {
@@ -1743,19 +1950,25 @@ img {
 }
 
 .copy-text {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  color: #fff;
   text-align: center;
+  margin-right: 160px;
 }
 
 .footer-bottom-links {
   display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 auto;
   gap: 20px;
 }
 
 .footer-bottom-links a {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  white-space: nowrap;
 }
 
 .footer-bottom-links a:hover {
@@ -1763,12 +1976,13 @@ img {
 }
 
 .footer-codio {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  color: #fff;
+  margin-left: 160px;
 }
 
 .footer-codio a {
-  color: #f2ad00;
+  color: #fff;
   font-weight: 700;
 }
 
@@ -2146,6 +2360,24 @@ img {
   }
   .inner-content {
     padding: 40px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+  .inner-content .title {
+    max-width: none;
+  }
+  .right-group {
+    flex: none;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    max-width: none;
+  }
+  .inner-content .desc {
+    text-align: center;
+    max-width: 550px;
   }
   .detail-container {
     border-radius: 60px;
