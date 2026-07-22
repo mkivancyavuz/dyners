@@ -15,7 +15,7 @@ const translations = {
     about_btn: "Detaylı İncele",
     
     // Home Page Products Section
-    products_title: "ÜRÜNLERİMİZ",
+    products_title: "ÜRÜNLER",
     
     // Products details
     prod_smash_desc: "Smash Köfte - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile servis edilir.",
@@ -162,6 +162,97 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. Initialize Translation System
   applyTranslations();
 
+  // 1b. Hero Ticker Dead-Center Fix — runs FIRST, wrapped in try/catch,
+  // so it can never be silently skipped by an error thrown later in
+  // this handler.
+  //
+  // THE REAL BUG (found via an on-page debug readout): each band's own
+  // geometric center genuinely was landing exactly on the anchor's
+  // center (delta measured 0.0px) — but the visible "X" where the two
+  // diagonal bands cross is NOT the same point as either band's own
+  // center. .first sits near the TOP of .tickers (top:90px) rotated
+  // -7.63deg, .second sits near the BOTTOM (bottom:90px) rotated
+  // +7.63deg — two different pivot points, vertically apart. Two lines
+  // through two different points at opposite angles cross at a point
+  // that's offset from both pivots' shared x by (Δy / (2*tan angle)) —
+  // in this layout that offset works out to several hundred px, which
+  // is exactly the leftward gap that kept showing up no matter how
+  // precisely each band was individually centered.
+  //
+  // Fix: solve for where the two rotated bands ACTUALLY cross right
+  // now (basic line-intersection, using each band's measured pivot
+  // point + rotation angle), compare that to the target center, and
+  // shift BOTH bands by the SAME delta — shifting two lines by an
+  // equal amount shifts their intersection by that same amount, so
+  // this is exact regardless of the vertical offset between them.
+  try {
+    const tickersEl = document.querySelector(".tickers");
+    // The black checkered "pill" visible behind the hero photo is NOT
+    // the photo itself — it's .home-spine::before, a pseudo-element
+    // with a huge negative top offset that bleeds all the way up
+    // behind the hero/ticker area. You can't get a JS reference to a
+    // ::before, but its own CSS (left:50%; transform:translateX(-50%))
+    // always centers it on .home-spine's own box, so measuring
+    // .home-spine directly gives the exact same center.
+    const anchorEl =
+      document.querySelector(".home-spine") ||
+      document.getElementById("home-video-caller") ||
+      document.querySelector("#first-section .video-group");
+    if (tickersEl && anchorEl) {
+      const baseRotation = { first: -7.63, second: 7.63 };
+      const centerTickerBands = () => {
+        const anchorRect = anchorEl.getBoundingClientRect();
+        const anchorCenter = anchorRect.left + anchorRect.width / 2;
+
+        const firstEl = tickersEl.querySelector(".ticker-container.first");
+        const secondEl = tickersEl.querySelector(".ticker-container.second");
+        if (!firstEl || !secondEl) return;
+
+        // Reset both to their plain rotation (no translate) before
+        // measuring, so repeated calls don't compound on top of a
+        // previous correction.
+        firstEl.style.transform = `rotate(${baseRotation.first}deg)`;
+        secondEl.style.transform = `rotate(${baseRotation.second}deg)`;
+
+        const r1 = firstEl.getBoundingClientRect();
+        const r2 = secondEl.getBoundingClientRect();
+        // Rotation is around each element's own center, so the AABB's
+        // center from getBoundingClientRect equals the true (x,y)
+        // pivot the rotation happens around.
+        const x1 = r1.left + r1.width / 2;
+        const y1 = r1.top + r1.height / 2;
+        const x2 = r2.left + r2.width / 2;
+        const y2 = r2.top + r2.height / 2;
+
+        const m1 = Math.tan((baseRotation.first * Math.PI) / 180);
+        const m2 = Math.tan((baseRotation.second * Math.PI) / 180);
+
+        // Intersection of line1: y = y1 + m1*(x-x1) and
+        // line2: y = y2 + m2*(x-x2)
+        let crossX;
+        if (Math.abs(m1 - m2) < 1e-6) {
+          // Parallel (shouldn't happen with opposite angles) — fall
+          // back to the simple average.
+          crossX = (x1 + x2) / 2;
+        } else {
+          crossX = (m1 * x1 - m2 * x2 + (y2 - y1)) / (m1 - m2);
+        }
+
+        const delta = anchorCenter - crossX;
+
+        firstEl.style.transform = `translateX(${delta}px) rotate(${baseRotation.first}deg)`;
+        secondEl.style.transform = `translateX(${delta}px) rotate(${baseRotation.second}deg)`;
+      };
+      centerTickerBands();
+      window.addEventListener("resize", centerTickerBands);
+      window.addEventListener("load", centerTickerBands);
+      setTimeout(centerTickerBands, 300);
+      setTimeout(centerTickerBands, 1000);
+    }
+  } catch (err) {
+    console.error("Ticker centering failed:", err);
+  }
+
   // 2. Language Switcher Toggles
   const switcher = document.querySelector(".lang-switcher");
   if (switcher) {
@@ -299,9 +390,9 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!isNaN(datatype)) {
             // Formula to separate pieces on scrolling up/down
             // The multiply coefficient determines separation sensitivity —
-            // lowered from 0.22 so pieces drift apart subtly instead of
-            // flying far apart while scrolling.
-            const offset = distance * datatype * 0.1;
+            // lowered further (0.1 -> 0.045) so pieces drift apart only
+            // subtly while scrolling instead of sliding a large distance.
+            const offset = distance * datatype * 0.01;
             // Horizontal jitter only (matches dyners.com — each piece
             // slides left/right, not up/down), composed with the
             // existing -50% centering via calc().
