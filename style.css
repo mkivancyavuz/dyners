@@ -143,12 +143,23 @@ img {
 }
 
 @media (min-width: 992px) {
+  .col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .col-lg-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
   .col-lg-10 {
     flex: 0 0 83.333333%;
     max-width: 83.333333%;
   }
   .offset-lg-1 {
     margin-left: 8.333333%;
+  }
+  .offset-lg-2 {
+    margin-left: 16.666667%;
   }
   .d-none.d-lg-block {
     display: block !important;
@@ -184,6 +195,16 @@ img {
   }
 }
 
+@media (min-width: 1400px) {
+  .col-xxl-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+  .offset-xxl-2 {
+    margin-left: 16.666667%;
+  }
+}
+
 @media (min-width: 768px) {
   .d-none.d-md-block {
     display: block !important;
@@ -201,7 +222,7 @@ img {
   background-color: #fff;
   z-index: 90;
   box-shadow: 0 0 4px 0 rgba(29, 29, 27, 0.03);
-  height: 80px;
+  height: 100px;
   display: flex;
   align-items: center;
   /* Real site applies its Catamaran font via Next.js font classes
@@ -533,6 +554,15 @@ img {
   margin-top: 0;
 }
 
+/* About page only: the real gap before the footer wasn't the strip's
+   own padding (already trimmed to 0) — it was this shared #main-page
+   rule's 150px margin-bottom, used site-wide to space page content
+   from the footer. Scoped override (ID+class beats the plain ID rule)
+   so only this page's strip docks flush against footer-top. */
+#main-page.no-bottom-gap {
+  margin-bottom: 0;
+}
+
 /* ==========================================
    HOME TITLE (section headings)
    ========================================== */
@@ -609,10 +639,6 @@ img {
    with no letterboxing, matching the real site's larger hero photo. */
 #first-section .content .video-group #home-video-caller.video-caller {
   padding-top: 100%;
-}
-
-.video-caller:hover {
-  transform: scale(1.02);
 }
 
 /* ==========================================
@@ -1381,7 +1407,9 @@ img {
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  padding: 10px 4px;
+  padding: 10px 4px 10px 20px;
+  background: #ffffff1a;
+  border-radius: 999px;
 }
 .navigation-group::-webkit-scrollbar {
   display: none;
@@ -1394,7 +1422,7 @@ img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: 3px solid #f2ad00;
+  background-color: #ffffff26;
   transform: translateY(-50%);
   transition: left 0.35s cubic-bezier(0.65, 0, 0.35, 1);
   pointer-events: none;
@@ -1949,8 +1977,39 @@ img {
 
 .footer-top {
   background-color: #fafafa;
-  padding: 60px 0 40px;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
+  width: 2560px;
+  max-width: 100%;
+  height: 271px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  /* Old 60px/40px padding was eating into this now-fixed 271px height,
+     leaving less room than .content itself needs (also 271px) and
+     pushing it out of vertical center. Centering here via flex instead
+     of padding is what actually re-centers .content (and everything
+     nested inside it) within the box now that both share the same
+     height. */
+  display: flex;
+  align-items: center;
+}
+
+.footer-top .container-xxl {
+  width: 100%;
+}
+
+/* The real reason space-between showed no visible change: this column
+   (col-xl-10 offset-xl-1) narrows to 83.33% of the 1400px container —
+   about 1166px — so .content's own max-width:100% was clamping the
+   requested 1341px down to that same ~1166px, leaving barely 50px of
+   slack for space-between to redistribute (imperceptible). Letting
+   this specific column take the container's full width means .content
+   can actually reach its real 1341px, with enough width around the
+   content to push the two contact groups out to visibly distinct
+   edges. */
+.footer-top [class*="col-"] {
+  flex: 0 0 100%;
+  max-width: 100%;
+  margin-left: 0;
 }
 
 .footer-bottom {
@@ -1966,8 +2025,26 @@ img {
     0 20px,
     20px -20px,
     -20px 0;
-  padding: 12px 0 10px;
   color: rgba(255, 255, 255, 0.6);
+  /* "Thickness" = 73px total. Old 12px/10px padding is dropped in
+     favor of flex centering (same fix as .footer-top): with a fixed
+     height, padding would just eat into that 73px instead of adding
+     to it, so centering the child vertically is what actually keeps
+     everything inside the box instead of overflowing it. */
+  height: 73px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+/* Same recurring cause as the earlier footer-top fix: .container-xxl
+   caps at 1400px, so its ~1310px available content width (after
+   padding) was clamping .footer-bottom-inner's max-width:100% down
+   below the requested 1614px — that's why nothing visibly changed.
+   Letting this specific container ignore that cap is what actually
+   lets .footer-bottom-inner reach its real size. */
+.footer-bottom .container-xxl {
+  max-width: none;
 }
 
 .footer-top .content {
@@ -1975,13 +2052,19 @@ img {
   flex-wrap: wrap;
   gap: 100px;
   align-items: center;
-  /* space-between was stretching to fill the whole container width on
-     its own, making it wider than our 100px "gap" — so raising gap
-     did nothing, the real spacing was coming entirely from
-     space-between's own auto-distribution instead. justify-content:
-     center makes gap itself the actual (and now directly adjustable)
-     distance between the logo and both text blocks. */
-  justify-content: center;
+  /* Now that the box has a fixed width (below), space-between is safe
+     to use again — it pushes the two contact-info-groups to the far
+     left/right edges of that fixed box, with the logo landing in the
+     true center between them. */
+  justify-content: space-between;
+  /* Fixed box — centered in its column via margin:auto, which is also
+     what re-centers the contact/hours text and logo within the new
+     dimensions instead of leaving them pinned to the old fluid-width
+     position. */
+  width: 1341px;
+  max-width: 100%;
+  height: 271px;
+  margin: 0 auto;
 }
 
 .contact-info-group {
@@ -1992,6 +2075,20 @@ img {
   gap: 10px;
   flex: 0 1 380px;
   max-width: 380px;
+}
+
+/* İletişim Bilgileri stays at its normal centered position (it's the
+   tallest of the two groups, so align-items:center on the row already
+   anchors its title where it should be). Çalışma Saatleri is much
+   shorter (title + 2 lines vs. title + phone + 2-line address +
+   social icons), so centering it independently lands its title lower
+   than İletişim's. Pulling it to the row's top edge and pushing it
+   back down by İletişim's own top offset (~52px, based on İletişim's
+   ~167px content height inside the 271px row) lines the two titles up
+   without moving İletişim at all. */
+.hours-group {
+  align-self: flex-start;
+  margin-top: 52px;
 }
 
 .contact-info-group .title {
@@ -2005,13 +2102,13 @@ img {
 
 .contact-info-group .group-item {
   font-size: 13px;
-  color: #555;
-  line-height: 1.3;
+  color: #000;
+  line-height: 2;
   text-align: center;
 }
 
 .contact-info-group .group-item:hover {
-  color: #000;
+  color: #641913;
 }
 
 .social-media {
@@ -2052,12 +2149,21 @@ img {
 }
 
 .footer-bottom-inner {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  /* .footer-codio's own margin-left:auto now does the actual left/right
+     anchoring (copy-text flush left, codio flush right) — flex-start
+     avoids space-between fighting that auto margin for the same free
+     space. */
+  justify-content: flex-start;
   gap: 16px;
-  padding: 24px 0;
+  width: 1614px;
+  max-width: 100%;
+  height: 73px;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .footer-bottom .logo-group img {
@@ -2065,11 +2171,18 @@ img {
   filter: none; /* keep white logo */
 }
 
+/* Empty on every page (established elsewhere in the footer rebuild) —
+   hiding it removes its flex slot entirely, so .copy-text can actually
+   sit flush at the true left edge instead of being offset by one
+   gap's worth of space for an invisible sibling. */
+.footer-bottom .logo-group {
+  display: none;
+}
+
 .copy-text {
   font-size: 14px;
   color: #fff;
   text-align: center;
-  margin-right: 160px;
 }
 
 .footer-bottom-links {
@@ -2077,8 +2190,15 @@ img {
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  flex: 1 1 auto;
   gap: 20px;
+  /* Centering within the leftover flex gap isn't the true bar center
+     when copy-text and footer-codio have different widths, so this is
+     pulled out of flex flow entirely and centered against the full
+     width/height of .footer-bottom-inner instead. */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .footer-bottom-links a {
@@ -2091,15 +2211,35 @@ img {
   color: #fff;
 }
 
+/* Pushes itself flush to the right edge, while .copy-text stays flush
+   left. This was previously being silently overridden by a leftover
+   duplicate .footer-codio rule further down (margin-left: 160px, a
+   stale value from before the flush-right approach) — with the same
+   specificity, that later rule was winning and dragging the text back
+   in next to copy-text instead of the true right edge. Merged into a
+   single rule so margin-left: auto actually applies. */
 .footer-codio {
   font-size: 14px;
   color: #fff;
-  margin-left: 160px;
+  margin-left: auto;
 }
 
 .footer-codio a {
   color: #fff;
   font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* codio-dark.svg is a near-black mark (#0e1f26), meant for light
+   backgrounds — .footer-bottom is dark, so it'd otherwise be nearly
+   invisible here. Inverting flips it to a light tone that reads
+   clearly against the dark checkered footer. */
+.footer-codio-logo {
+  height: 18px;
+  width: auto;
+  filter: invert(1);
+  vertical-align: middle;
 }
 
 /* ==========================================
@@ -2117,7 +2257,7 @@ img {
 .section-title {
   display: block;
   font-weight: 900;
-  font-size: 13px;
+  font-size: 70px;
   letter-spacing: 3px;
   color: #c0392b;
   text-transform: uppercase;
@@ -2163,7 +2303,7 @@ img {
 }
 
 .about-desc {
-  color: #555;
+  color: #4a4a4a;
   font-size: 15px;
   line-height: 1.8;
   text-align: left;
@@ -2210,88 +2350,123 @@ img {
   background: #fafafa;
 }
 
-/* Red/black split pill — one photo straddling the seam in the middle,
-   "Çıtır Tavuk Burger" copy on the red half, "Lokum Burger" copy on
-   the black half. */
+/* Red/black split pill — the two halves sit flush against each other
+   (no gap, no third flex item pushing them apart) and meet exactly in
+   the middle; the burger photo is absolutely positioned on TOP of
+   that seam, centered independently of the flex layout, so its own
+   left/right halves land over the red/black halves respectively. */
 .split-pill {
   position: relative;
   display: flex;
-  align-items: center;
-  min-height: 420px;
-  border-radius: 260px;
-  overflow: hidden;
+  width: 1280px;
+  height: 464px;
+  max-width: 100%;
 }
 
 .split-pill-side {
-  flex: 1 1 0;
+  position: relative;
+  flex: 1 1 50%;
   min-width: 0;
-  padding: 60px 70px;
   color: #fff;
+  /* Each half clips its OWN background to its own half of the pill
+     shape (only the outer corners round) — overflow:hidden lives here
+     instead of on .split-pill so it never clips the photo, which is
+     a sibling positioned outside this box's own stacking. */
+  overflow: hidden;
+}
+
+/* Absolutely centered on the side box's own height, regardless of any
+   flex stretch/shrink behavior on .split-pill-side itself — the same
+   bulletproof technique used for .burger-title. */
+.split-pill-content {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  padding: 0 70px;
 }
 
 .split-pill-red {
-  background-color: #7a1e1e;
+  background-color: #641913;
   text-align: left;
+  border-radius: 260px 0 0 260px;
 }
 
 .split-pill-black {
-  background-color: #0c0c0c;
+  background-color: #000;
   text-align: right;
-}
-
-.split-pill-label {
-  color: #fff;
-  opacity: 0.7;
-}
-
-.split-pill-side h2 {
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 16px;
-}
-
-.split-pill-side p {
-  font-size: 14px;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 340px;
+  border-radius: 0 260px 260px 0;
 }
 
 .split-pill-black p {
   margin-left: auto;
 }
 
+.split-pill-label {
+  color: #fff;
+}
+
+.split-pill-side h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.split-pill-side p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #fff;
+  max-width: 340px;
+}
+
+/* Straddles the seam: centered on .split-pill's exact midpoint (both
+   axes), independent of the two halves' flex sizing, and free to
+   bleed above/below the pill's own height since nothing here clips
+   it. */
 .split-pill-img {
-  position: relative;
-  z-index: 1;
-  flex: 0 0 auto;
-  width: clamp(280px, 26vw, 420px);
-  margin: 0 -20px;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 576px;
+  transform: translate(-50%, -50%);
 }
 
 .split-pill-img img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  /* The source photo is nearly square (1280x1219) but this box is
+     tall/narrow (400x576) — object-fit:contain was fitting it to the
+     box's WIDTH and leaving empty space above/below, so it rendered
+     visibly smaller than the 400x576 box suggested. cover fills the
+     full box (cropping the excess) instead. */
+  object-fit: cover;
   display: block;
 }
 
 @media (max-width: 900px) {
   .split-pill {
     flex-direction: column;
-    border-radius: 60px;
+    min-height: 0;
   }
-  .split-pill-img {
-    order: -1;
-    width: 70%;
-    margin: 20px 0;
+  .split-pill-red {
+    border-radius: 60px 60px 0 0;
+    padding-bottom: 140px;
+  }
+  .split-pill-black {
+    border-radius: 0 0 60px 60px;
+    padding-top: 140px;
   }
   .split-pill-red,
   .split-pill-black {
     text-align: center;
-    width: 100%;
+    align-items: center;
   }
-  .split-pill-black p {
-    margin-left: 0;
+  .split-pill-img {
+    width: 260px;
+    height: 374px;
   }
 }
 
@@ -2334,7 +2509,7 @@ img {
 
 /* Brand / ingredient partners strip (About page) */
 .brand-partners {
-  padding: 80px 0 100px;
+  padding: 15px 0;
   text-align: center;
 }
 
@@ -2358,33 +2533,44 @@ img {
   display: flex;
   align-items: center;
   width: max-content;
+  /* Overrides the generic .scroll-ticker animation (which assumes 10
+     copies, -10% per loop) — this track has 6 copies of one logo set,
+     so the loop distance must be exactly -1/6 (-16.666%) or the two
+     previous per-child scroll1/scroll2 animations (which referenced
+     keyframes that were never defined anywhere in this file, so they
+     silently did nothing) left the whole track sliding via the wrong
+     generic distance, drifting out of sync with its own content width
+     and causing the copies to bunch up/overlap over time. */
+  animation: partners-ticker-scroll 7s linear infinite;
+}
+
+@keyframes partners-ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-16.6666%);
+  }
 }
 
 .partners-ticker-group {
   display: flex;
   align-items: center;
-  animation: scroll1 30s linear infinite;
-}
-
-.partners-ticker-container .scroll-ticker .partners-ticker-group:nth-child(2) {
-  animation: scroll2 30s linear -15s infinite;
+  flex-shrink: 0;
 }
 
 .partners-ticker-group img {
-  height: 36px;
+  /* Every logo's SVG viewBox is 44px tall (heinz.svg = 97x44 exactly),
+     just at different native widths — setting height to that native
+     44px and leaving width:auto scales each logo up by the same
+     factor off its own aspect ratio, so heinz lands at exactly 97x44
+     and none of the others get stretched/squashed. */
+  height: 44px;
   width: auto;
-  margin: 0 40px;
-  opacity: 0.55;
-  filter: grayscale(1);
+  margin: 0 70px;
+  opacity: 0.85;
+  filter: grayscale(1) brightness(0.4);
   flex-shrink: 0;
-  transition:
-    opacity 0.2s ease,
-    filter 0.2s ease;
-}
-
-.partners-ticker-group img:hover {
-  opacity: 1;
-  filter: grayscale(0);
 }
 
 /* ==========================================
@@ -2396,75 +2582,228 @@ img {
   background: #fafafa;
 }
 
+/* Zigzag list of circular photo + black stadium-pill text, matching
+   the real site's own class names (.menu-item / .menu-item-content
+   .odd-item/.even-item / .menu-image-container / .menu-details
+   .content .title/.ingredients) instead of the placeholder ones used
+   before. The checkerboard pattern (same one used behind the home
+   page's parallax/about/products sections) is the photo's own ring
+   frame — see .menu-image-container. */
 .menus-grid-section {
-  padding: 60px 0;
+  position: relative;
+  /* Header is position:fixed at 100px tall and paints over anything
+     behind it — this padding matches that height so it clears with
+     zero overlap (anything less lets the header's white background
+     cover part of the first row). */
+  padding: 100px 0 40px;
 }
 
-.menu-items-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
+/* The inherited col-xxl-8/offset-xxl-2 (from matching the real site's
+   own grid classes) only ever gives this column 66.67% of the
+   1400px-capped .container-xxl — about 930px at most. But a 550px
+   circle plus a 608px pill overlapping by ~90px needs about 1070px, so
+   at EVERY viewport (not just the narrower ones) that inherited column
+   width was actually narrower than the content it had to hold, which
+   is what pushed the circle/pill past the column's edge and produced
+   the overlapping, cut-off screenshot. Overriding the width here (this
+   selector's specificity beats the plain .col-xxl-8/.offset-xxl-2
+   rules) decouples this row's sizing from that generic grid fraction
+   and gives it enough room outright, while still centering + shrinking
+   gracefully on narrower screens same as before. */
+.menus-grid-section .menu-item {
+  flex: 0 0 100%;
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-@media (min-width: 768px) {
-  .menu-items-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.menu-item {
+  /* Fixed -50px was fine once the row's own content stopped shrinking
+     (>=1400px), but between 992-1400px the circle/pill below shrink
+     via clamp() while this stayed a flat -50px, so it no longer
+     matched their now-smaller scale — scaling it with the same clamp
+     keeps the overlap proportional at every width in that range. */
+  margin-top: clamp(-50px, -5vw, -20px);
 }
-@media (min-width: 1200px) {
-  .menu-items-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.menu-item:first-child {
+  margin-top: 0;
 }
 
-.menu-item-card {
-  background: #fff;
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+.menu-item-content {
+  position: relative;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  min-height: clamp(280px, 34vw, 550px);
 }
 
-.menu-item-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+/* The real DOM marks the alternating side explicitly per item
+   (.odd-item / .even-item) rather than relying on :nth-child, so the
+   zigzag mirrors that instead of being computed from row position.
+   Flipped onto .odd-item instead of .even-item so the very first item
+   (odd-item) puts its photo on the right, per request. */
+.menu-item-content.odd-item {
+  flex-direction: row-reverse;
 }
 
-.menu-item-img {
-  width: 100%;
-  aspect-ratio: 4/3;
+.menu-image-container {
+  position: relative;
+  z-index: 2;
+  /* Fixed 550x550 only actually fit the column at very wide viewports
+     (roughly >=1400px, where col-xxl-8 gives it enough room) — between
+     the 992px breakpoint (where the row stops stacking) and 1400px,
+     the column is narrower than 550+608-110px of fixed-width content,
+     so the circle and pill overflowed past the column's edge instead
+     of shrinking to fit (the actual cause of the broken/overlapping
+     screenshot). clamp() lets both scale down smoothly with the
+     viewport instead of jumping straight from the 991px stacked layout
+     to a fixed 550px circle. Padding (the ring's thickness) scales
+     with it so the ring stays proportional instead of swallowing the
+     whole photo at smaller sizes. */
+  width: clamp(280px, 34vw, 550px);
+  height: clamp(280px, 34vw, 550px);
+  flex-shrink: 0;
+  border-radius: 50%;
   overflow: hidden;
-  background: #f0f0f0;
+  box-sizing: border-box;
+  padding: clamp(22px, 3vw, 45px);
+  background-color: #0c0c0c;
+  background-image:
+    linear-gradient(45deg, #1c1c1c 25%, transparent 0),
+    linear-gradient(-45deg, #1c1c1c 25%, transparent 0),
+    linear-gradient(45deg, transparent 75%, #1c1c1c 0),
+    linear-gradient(-45deg, transparent 75%, #1c1c1c 0);
+  background-size: 40px 40px;
+  background-position:
+    0 0,
+    0 20px,
+    20px -20px,
+    -20px 0px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
-.menu-item-img img {
+.menu-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
-}
-.menu-item-card:hover .menu-item-img img {
-  transform: scale(1.05);
+  border-radius: 50%;
+  display: block;
 }
 
-.menu-item-info {
-  padding: 24px;
-  flex-grow: 1;
+.menu-details {
+  position: relative;
+  z-index: 1;
+  /* Same overflow problem as the circle above, fixed the same way:
+     scales between the 991px stacked breakpoint and 1400px instead of
+     forcing a flat 608px that doesn't fit a narrower column. */
+  flex: 0 1 608px;
+  width: clamp(300px, 42vw, 608px);
+  height: clamp(200px, 20vw, 300px);
+  box-sizing: border-box;
+  min-width: 0;
+  background: #000;
+  /* This is the even-item (image-left) side: the pill's LEFT edge is
+     the one that slides behind the circle (margin-left below), so it
+     stays flat/straight where it "emerges" from under the photo —
+     only the far (right) edge keeps the stadium curve. */
+  border-radius: 0 999px 999px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Padding-left is deliberately bigger than the negative margin below
+     (and scales the same way) so the actual text always clears the
+     circle's overlap with room to spare, instead of rendering partly
+     hidden underneath it. */
+  padding: 0 clamp(30px, 5vw, 70px) 0 clamp(110px, 13vw, 170px);
+  margin-left: clamp(-90px, -7vw, -30px);
 }
-.menu-item-info h3 {
-  font-size: 18px;
-  font-weight: 800;
-  margin-bottom: 10px;
+.menu-item-content.odd-item .menu-details {
+  margin-left: 0;
+  margin-right: clamp(-90px, -7vw, -30px);
+  text-align: left;
+  align-items: flex-start;
+  /* Mirrored: this pill's RIGHT edge is the one behind the circle, so
+     that side stays flat and gets the bigger clearance padding, while
+     the left (far) edge keeps the curve. */
+  border-radius: 999px 0 0 999px;
+  padding: 0 clamp(110px, 13vw, 170px) 0 clamp(30px, 5vw, 70px);
+}
+.menu-item-content.even-item .menu-details {
+  text-align: left;
+  align-items: flex-start;
+}
+.menu-details .content {
+  width: 100%;
+}
+.menu-details .title {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 12px;
   text-transform: uppercase;
+  color: #fff;
 }
-.menu-item-info p {
-  color: #555;
+.menu-details .ingredients {
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* "Extras" list below the burger grid (sides/drinks). Note:
+   .inner-group is already used elsewhere (the About-page pill detail
+   box) with position:absolute + a dark background — none of that
+   applies to this section, so everything is reset back to normal flow
+   here, scoped under .extra-group so it can't leak into that other
+   component. */
+/* İçecekler is the last of the 5 groups — it's the only one that gets
+   its own full row (the other 4 pair up two-per-row via col-lg-6), so
+   it needs to span 100% and center its own content instead of sitting
+   in the left half like the paired items above it. */
+.extra-group:last-child {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.extras-content {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 60px;
+}
+
+.extra-group {
+  margin-top: 60px;
+}
+
+.extra-group .inner-group {
+  position: static;
+  inset: auto;
+  z-index: auto;
+  background: none;
+  border-radius: 0;
+  display: block;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.extra-group .title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a2021;
+}
+
+.extra-list {
+  margin-top: 24px;
+}
+
+.extra-list li {
+  padding: 3px 0;
+}
+
+.extra-list .list-title {
   font-size: 14px;
-  line-height: 1.6;
+  color: #4a4a4a;
+}
+.extra-list .list-title:hover {
+  color: #641913;
 }
 
 /* ==========================================
@@ -2574,6 +2913,34 @@ img {
    RESPONSIVE
    ========================================== */
 @media (max-width: 991px) {
+  .menu-item {
+    margin-top: 30px;
+  }
+  .menu-item:first-child {
+    margin-top: 0;
+  }
+  .menu-item-content,
+  .menu-item-content.even-item,
+  .menu-item-content.odd-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  .menu-image-container {
+    width: 220px;
+    height: 220px;
+    padding: 12px;
+  }
+  .menu-details,
+  .menu-item-content.even-item .menu-details,
+  .menu-item-content.odd-item .menu-details {
+    margin: -50px 0 0;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    border-radius: 40px;
+    padding: 70px 30px 30px;
+  }
   .home-spine::before {
     width: 92%;
     border-radius: 60px;

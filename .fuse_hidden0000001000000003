@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Dyners | Hakkımızda</title>
+  <title>Dyners | Politikalar</title>
   <link rel="shortcut icon" href="icons/dyners.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -17,51 +17,35 @@
       <div class="row">
         <div class="col-12 offset-0 col-lg-10 offset-lg-1">
           <div class="content">
-            
-            <!-- Left Navigation Menu (Desktop Only) -->
+
             <div class="menu-col d-none d-lg-block">
               <ul class="list-style-none">
-                <li class="menu-list">
-                  <a href="index.html" data-translate="nav_home">ANASAYFA</a>
-                </li>
-                <li class="menu-list">
-                  <a href="hakkimizda.html" class="active" data-translate="nav_about">HAKKIMIZDA</a>
-                </li>
+                <li class="menu-list"><a href="index.html" data-translate="nav_home">ANASAYFA</a></li>
+                <li class="menu-list"><a href="hakkimizda.html" data-translate="nav_about">HAKKIMIZDA</a></li>
               </ul>
             </div>
-            
-            <!-- Mobile Menu Trigger -->
+
             <div class="mobile-btn d-block d-lg-none">
-              <span></span>
-              <span></span>
-              <span></span>
+              <div class="button-group">
+                <span></span><span></span><span></span>
+              </div>
             </div>
-            
-            <!-- Logo Column -->
+
             <div class="logo-col">
               <a href="index.html">
                 <img alt="logo" width="100" height="35" src="https://cdn.datanuvis.com/6a482a963c88bc7d5488a1a4/media/non-album/5174aa31-d113-4d49-8e73-f3c4fc763868.svg" style="color: transparent;" />
               </a>
             </div>
-            
-            <!-- Right Navigation Menu & Switcher -->
+
             <div class="right-col d-none d-lg-flex">
-              <div class="menu-col">
+              <div class="menu-col d-none d-lg-block">
                 <ul class="list-style-none">
-                  <li class="menu-list">
-                    <a href="menuler.html" data-translate="nav_menu">MENÜ</a>
-                  </li>
-                  <li class="menu-list">
-                    <a href="index.html#home-contact-section" data-translate="nav_contact">İLETİŞİM</a>
-                  </li>
+                  <li class="menu-list"><a href="menuler.html" data-translate="nav_menu">MENÜ</a></li>
+                  <li class="menu-list"><a href="index.html#home-contact-section" data-translate="nav_contact">İLETİŞİM</a></li>
                 </ul>
               </div>
-              
-              <!-- Language Switcher -->
               <div class="lang-switcher">
-                <div class="current-lang">
-                  <div class="lang">Türkçe</div>
-                </div>
+                <div class="current-lang"><div class="lang">Türkçe</div></div>
                 <ul class="list-style-none other-langs">
                   <li value="tr">Türkçe</li>
                   <li value="ar">Arabic</li>
@@ -74,8 +58,7 @@
         </div>
       </div>
     </div>
-    
-    <!-- Mobile Navigation Overlay (Dropdown) -->
+
     <div class="mobile-menu d-block d-lg-none">
       <div class="mobile-menu-layer"></div>
       <div class="menu-container">
@@ -85,25 +68,15 @@
           </div>
           <div class="nav-group">
             <ul class="list-style-none">
-              <li class="menu-list">
-                <a href="index.html" data-translate="nav_home">ANASAYFA</a>
-              </li>
-              <li class="menu-list">
-                <a href="hakkimizda.html" class="active" data-translate="nav_about">HAKKIMIZDA</a>
-              </li>
-              <li class="menu-list">
-                <a href="menuler.html" data-translate="nav_menu">MENÜ</a>
-              </li>
-              <li class="menu-list">
-                <a href="index.html#home-contact-section" data-translate="nav_contact">İLETİŞİM</a>
-              </li>
+              <li class="menu-list"><a href="index.html" data-translate="nav_home">ANASAYFA</a></li>
+              <li class="menu-list"><a href="hakkimizda.html" data-translate="nav_about">HAKKIMIZDA</a></li>
+              <li class="menu-list"><a href="menuler.html" data-translate="nav_menu">MENÜ</a></li>
+              <li class="menu-list"><a href="index.html#home-contact-section" data-translate="nav_contact">İLETİŞİM</a></li>
             </ul>
           </div>
           <div class="bottom-group">
             <div class="lang-switcher">
-              <div class="current-lang">
-                <div class="lang">Türkçe</div>
-              </div>
+              <div class="current-lang"><div class="lang">Türkçe</div></div>
               <ul class="list-style-none other-langs">
                 <li value="tr">Türkçe</li>
                 <li value="ar">Arabic</li>
@@ -119,86 +92,81 @@
     </div>
   </header>
 
-  <!-- ==========================================
-       MAIN CONTENT CONTAINER
-       ========================================== -->
   <div id="main-layout">
-    <main id="main-page" class="no-bottom-gap">
-      
-      <!-- HERO -->
-      <section class="about-hero">
-        <div class="container-xxl custom-padding">
-          <h1 class="section-subtitle" data-translate="about_subtitle">LEZZETİN CESUR HALİNİ KEŞFET!</h1>
-          <div class="about-hero-photo">
-            <img src="images/hakkimizda-img.jpg" alt="Dyners burger, cola and fries" />
-          </div>
-          <div class="about-desc-row">
-            <p class="about-desc" data-translate="about_desc">
-              2026 yılında kurulan Dyners, cesur lezzetleri ve premium kalitesiyle fark yaratmayı hedefliyor. Özenle seçilmiş malzemeler ve ustalıkla hazırlanan tariflerle her lokmada benzersiz bir deneyim sunuyoruz. Kaliteden ödün vermeden, lezzetin tadını her ısırıkta hissettirerek yolculuğumuza devam ediyoruz.
-            </p>
-            <p class="about-desc" data-translate="about_milestone1_desc">
-              %100 dana etinden özel ev yapımı köfteyi en kaliteli malzemelerle buluşturup özenle hazırladığımız soslarımız ve taze sebzelerle bir araya getiriyoruz. Yerel fırınlarımızda hazırlanan yumuşacık ekmeklerin arasında son dokunuşları yapıp size kat kat lezzet sunmaktan mutluluk duyuyoruz.
-            </p>
-          </div>
-        </div>
-      </section>
+    <main id="main-page">
 
-      <!-- HIGHLIGHT BURGER CARDS -->
-      <section class="about-features">
+      <section class="legal-page">
         <div class="container-xxl custom-padding">
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-lg-10 offset-lg-1">
 
-              <div class="split-pill">
-                <div class="split-pill-side split-pill-red">
-                  <div class="split-pill-content">
-                    <span class="section-title split-pill-label">DYNERS</span>
-                    <h2 data-translate="about_card_chicken_title">Çıtır Tavuk Burger</h2>
-                    <p data-translate="about_card_chicken_desc">
-                      Çıtır tavuk, taze marul, cheddar peyniri ve kremamsı mayonez ile birleşen çıtır tavuk burgerimiz, her ısırıkta mükemmel bir lezzet uyumu sunuyor.
-                    </p>
-                  </div>
-                </div>
-                <div class="split-pill-img">
-                  <img src="images/splitted-burger-5.png" alt="Burger details" />
-                </div>
-                <div class="split-pill-side split-pill-black">
-                  <div class="split-pill-content">
-                    <span class="section-title split-pill-label">EST. 2026</span>
-                    <h2 data-translate="about_card_lokum_title">Lokum Burger</h2>
-                    <p data-translate="about_card_lokum_desc">
-                      Dinlendirilmiş dana bonfile ile hazırlanan lokum etlerimizi karamelize soğan, hardal ve yumuşacık ekmeğimizle bir araya getirdik.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <nav class="legal-tabs">
+                <a href="kvkk-gizlilik-ve-cerez-politikasi.html" class="active">Gizlilik ve Çerez Politikası</a>
+                <a href="kvkk-kisisel-veri-basvurusu.html">Kişisel Veri Başvurusu</a>
+                <a href="kvkk-ziyaretci-aydinlatma-metni.html">Ziyaretçi Aydınlatma Metni</a>
+              </nav>
 
-            </div>
-          </div>
-        </div>
-      </section>
+              <article class="legal-content">
+                <p>MESH GIDA TİC. LTD. ŞTİ. olarak internet sitemizi ziyaretiniz sırasında sizlere daha etkili deneyim sunmak adına kullandığımız çerezlere ilişkin olarak sizleri bilgilendirmek istiyoruz. İlgili çerez kullanımları başta 6698 sayılı Kişisel Verilerin Korunması Kanunu olmak üzere dahil olduğumuz mevzuata uygun şekilde gerçekleştirilmektedir.</p>
 
-      <!-- BRAND PARTNERS -->
-      <section class="brand-partners">
-        <div class="partners-ticker-container">
-          <div class="scroll-ticker partners-scroll-ticker">
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
+                <p>Sitemizde kullandığımız çerezlerden vazgeçebilir, değiştirebilir ya da yeni çerezler ekleyebiliriz. Bu doğrultuda güncel Çerez Politikası üzerinde gerçekleştirilen her türlü değişiklik sitemiz üzerinden ya da diğer iletişim kanallarından yayınlanarak, yürürlük kazanmış olacaktır. Konu kapsamında son güncelleme tarihini Çerez Politikası'nın başında bulabileceğinizin bilgisini vermek isteriz.</p>
+
+                <h2>ÇEREZLER HAKKINDA BİLGİLENDİRME</h2>
+
+                <h3>Çerez Nedir?</h3>
+                <p>Çerezler, bir web sitesini ziyaret ettiğinizde bilgisayarınızda veya mobil cihazınızda saklanan küçük dosyalardır. Bir çerez genellikle kaynaklandığı web sitesinin adı, çerezin 'ömrü' (yani cihazınızda ne kadar süre saklanacağı) ve genellikle rastgele oluşturulan benzersiz bir sayı değeri gibi bilgileri içerir.</p>
+
+                <h3>Hangi Tür Çerezleri Ne Amaçla Kullanıyoruz?</h3>
+                <table>
+                  <thead><tr><th>Çerez Türü</th><th>Kullanım Amacı</th></tr></thead>
+                  <tbody>
+                    <tr><td>Teknik Çerezler</td><td>İnternet sitesinin çalışmasını sağlamak, internet sitesinin çalışmayan sayfa ve alanlarını tespit etmek.</td></tr>
+                    <tr><td>Kimlik Doğrulama Çerezleri</td><td>Ziyaretçilerin şifrelerini kullanarak internet sitesine giriş yapmaları durumunda internet sitesinde ziyaret ettiği her bir sayfada site kullanıcısı olduğu belirlemek, kullanıcının her sayfada şifresini yeniden girmesini önlemek.</td></tr>
+                    <tr><td>Flash Çerezleri</td><td>İnternet sitesinde yer alan görüntü veya ses içeriklerini etkinleştirmek.</td></tr>
+                    <tr><td>Kişiselleştirme Çerezleri</td><td>Kullanıcıların tercihlerini farklı internet sitelerinin farklı sayfalarını ziyarette de hatırlamak (Örneğin, seçilen dil tercihinin hatırlanması).</td></tr>
+                    <tr><td>Analitik Çerezler</td><td>İnternet sitesini ziyaret edenlerin sayıları, internet sitesinde görüntülenen sayfaların tespiti, internet sitesi ziyaret saatleri, internet sitesi sayfaları kaydırma hareketleri gibi analitik sonuçların üretimini sağlamak.</td></tr>
+                  </tbody>
+                </table>
+
+                <h3>Çerezlere İlişkin Tercihlerinizi Kişiselleştirebilirsiniz</h3>
+                <p>Bilgisayarınızın tarayıcı ayarlarını değiştirerek çerez tercihlerinizi kişiselleştirebilirsiniz.</p>
+                <table>
+                  <thead><tr><th>Uygulama</th><th>Kişiselleştirme Hakkında Bilgi</th></tr></thead>
+                  <tbody>
+                    <tr><td>Adobe Analytics</td><td><a href="http://www.adobe.com/uk/privacy/opt-out.html" target="_blank" rel="noopener">adobe.com/uk/privacy/opt-out.html</a></td></tr>
+                    <tr><td>AOL</td><td><a href="https://help.aol.com/articles/restore-security-settings-and-enable-cookie-settings-on-browser" target="_blank" rel="noopener">help.aol.com</a></td></tr>
+                    <tr><td>Google Adwords</td><td><a href="https://support.google.com/ads/answer/2662922?hl=en" target="_blank" rel="noopener">support.google.com/ads</a></td></tr>
+                    <tr><td>Google Analytics</td><td><a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">tools.google.com/dlpage/gaoptout</a></td></tr>
+                    <tr><td>Google Chrome</td><td><a href="http://www.google.com/support/chrome/bin/answer.py?hl=en&amp;answer=95647" target="_blank" rel="noopener">google.com/support/chrome</a></td></tr>
+                    <tr><td>Internet Explorer</td><td><a href="https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies" target="_blank" rel="noopener">support.microsoft.com</a></td></tr>
+                    <tr><td>Mozilla Firefox</td><td><a href="http://support.mozilla.com/en-US/kb/Cookies" target="_blank" rel="noopener">support.mozilla.com</a></td></tr>
+                    <tr><td>Opera</td><td><a href="http://www.opera.com/browser/tutorials/security/privacy/" target="_blank" rel="noopener">opera.com</a></td></tr>
+                    <tr><td>Safari</td><td><a href="https://support.apple.com/kb/ph19214?locale=tr_TR" target="_blank" rel="noopener">support.apple.com</a></td></tr>
+                  </tbody>
+                </table>
+
+                <h3>Kişisel Verilerin Çerezler Vasıtasıyla Toplanması ve Hukuki Sebebi</h3>
+                <p>Kişisel verileriniz, internet sitemizi ziyaretiniz ve kullanımınız sırasında elektronik ortamda yer alan çerezler aracılığıyla toplanmaktadır. Bu kişisel veriler, Kişisel Verilerin Korunması Kanunu'nda belirtilen 'veri sahibinin temel hak ve özgürlüklerine zarar vermemek kaydıyla, veri sorumlusunun meşru menfaatleri için zorunlu olması' ve 'açık rızanın alınması' hukuki sebeplerine dayanılarak işlenmektedir.</p>
+                <ul>
+                  <li>Kullanıcıların farklı internet sitelerinin farklı sayfalarını ziyaret ettiğinde tercihlerini hatırlamak (örneğin, seçilen dil tercihinin hatırlanması).</li>
+                </ul>
+
+                <h3>Kişisel Verilerin Aktarımı</h3>
+                <p>Sitemizde yer alan çerezler aracılığıyla işlenen kişisel verilerinizi hiçbir yere aktarmamaktayız.</p>
+
+                <h3>Kişisel Verilerin Korunmasına Yönelik Haklarınız</h3>
+                <p>Kişisel Verilerin Korunması Kanunu'nun 11. maddesi uyarınca sitenin kullanıcıları/üyeleri/ziyaretçileri olarak;</p>
+                <ul>
+                  <li>Verilerinizin kanuna aykırı şekilde işlenmesi nedeniyle zarara uğramanız halinde, zararınızın giderilmesini talep etme hakkına sahipsiniz.</li>
+                  <li>Kişisel verilerin aktarıldığı yurt içi veya yurt dışındaki kişileri öğrenebilirsiniz.</li>
+                  <li>Site kullanıcıları olarak, verilerin eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteyebilirsiniz.</li>
+                  <li>Kişisel verilerin işlenip işlenmediğini öğrenme, işlenmişse buna ilişkin bilgileri talep edebilirsiniz.</li>
+                  <li>Verilerinizin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığı hakkında bilgi edinebilirsiniz.</li>
+                  <li>Site ziyaretçileri olarak, KVK Kanunu ve ilgili diğer kanun hükümlerine uygun olarak işlenmiş olmasına rağmen, işlenmesini gerektiren sebeplerin ortadan kalkması hâlinde kişisel verilerin silinmesini isteme hakkına sahipsiniz.</li>
+                </ul>
+                <p>Yukarıda belirtilen haklarınıza ilişkin taleplerinizi, Kişisel Veri Başvuru Bilgilendirme Metninde düzenlenen yollarla bize iletmeniz halinde başvurularınız en kısa sürede değerlendirilerek sonuçlandırılacaktır.</p>
+              </article>
+
             </div>
           </div>
         </div>
@@ -235,7 +203,7 @@
                   </a>
                 </div>
 
-                <div class="contact-info-group hours-group">
+                <div class="contact-info-group">
                   <div class="title" data-translate="contact_hours_title">Çalışma Saatleri</div>
                   <div class="group-item" data-translate="contact_hours_weekdays">Pazartesi - Cumartesi: 12:00 - 21:00</div>
                   <div class="group-item" data-translate="contact_hours_sunday">Pazar: Kapalı</div>

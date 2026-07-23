@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Dyners | Hakkımızda</title>
+  <title>Dyners | Menüler</title>
   <link rel="shortcut icon" href="icons/dyners.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -25,7 +25,7 @@
                   <a href="index.html" data-translate="nav_home">ANASAYFA</a>
                 </li>
                 <li class="menu-list">
-                  <a href="hakkimizda.html" class="active" data-translate="nav_about">HAKKIMIZDA</a>
+                  <a href="hakkimizda.html" data-translate="nav_about">HAKKIMIZDA</a>
                 </li>
               </ul>
             </div>
@@ -49,7 +49,7 @@
               <div class="menu-col">
                 <ul class="list-style-none">
                   <li class="menu-list">
-                    <a href="menuler.html" data-translate="nav_menu">MENÜ</a>
+                    <a href="menuler.html" class="active" data-translate="nav_menu">MENÜ</a>
                   </li>
                   <li class="menu-list">
                     <a href="index.html#home-contact-section" data-translate="nav_contact">İLETİŞİM</a>
@@ -89,10 +89,10 @@
                 <a href="index.html" data-translate="nav_home">ANASAYFA</a>
               </li>
               <li class="menu-list">
-                <a href="hakkimizda.html" class="active" data-translate="nav_about">HAKKIMIZDA</a>
+                <a href="hakkimizda.html" data-translate="nav_about">HAKKIMIZDA</a>
               </li>
               <li class="menu-list">
-                <a href="menuler.html" data-translate="nav_menu">MENÜ</a>
+                <a href="menuler.html" class="active" data-translate="nav_menu">MENÜ</a>
               </li>
               <li class="menu-list">
                 <a href="index.html#home-contact-section" data-translate="nav_contact">İLETİŞİM</a>
@@ -125,82 +125,223 @@
   <div id="main-layout">
     <main id="main-page" class="no-bottom-gap">
       
-      <!-- HERO -->
-      <section class="about-hero">
-        <div class="container-xxl custom-padding">
-          <h1 class="section-subtitle" data-translate="about_subtitle">LEZZETİN CESUR HALİNİ KEŞFET!</h1>
-          <div class="about-hero-photo">
-            <img src="images/hakkimizda-img.jpg" alt="Dyners burger, cola and fries" />
-          </div>
-          <div class="about-desc-row">
-            <p class="about-desc" data-translate="about_desc">
-              2026 yılında kurulan Dyners, cesur lezzetleri ve premium kalitesiyle fark yaratmayı hedefliyor. Özenle seçilmiş malzemeler ve ustalıkla hazırlanan tariflerle her lokmada benzersiz bir deneyim sunuyoruz. Kaliteden ödün vermeden, lezzetin tadını her ısırıkta hissettirerek yolculuğumuza devam ediyoruz.
-            </p>
-            <p class="about-desc" data-translate="about_milestone1_desc">
-              %100 dana etinden özel ev yapımı köfteyi en kaliteli malzemelerle buluşturup özenle hazırladığımız soslarımız ve taze sebzelerle bir araya getiriyoruz. Yerel fırınlarımızda hazırlanan yumuşacık ekmeklerin arasında son dokunuşları yapıp size kat kat lezzet sunmaktan mutluluk duyuyoruz.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- HIGHLIGHT BURGER CARDS -->
-      <section class="about-features">
+      <!-- MENU GRID DISPLAY -->
+      <section class="menus-grid-section">
         <div class="container-xxl custom-padding">
           <div class="row">
-            <div class="col-12">
 
-              <div class="split-pill">
-                <div class="split-pill-side split-pill-red">
-                  <div class="split-pill-content">
-                    <span class="section-title split-pill-label">DYNERS</span>
-                    <h2 data-translate="about_card_chicken_title">Çıtır Tavuk Burger</h2>
-                    <p data-translate="about_card_chicken_desc">
-                      Çıtır tavuk, taze marul, cheddar peyniri ve kremamsı mayonez ile birleşen çıtır tavuk burgerimiz, her ısırıkta mükemmel bir lezzet uyumu sunuyor.
-                    </p>
-                  </div>
+            <!-- Burger 1 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content odd-item">
+                <div class="menu-image-container">
+                  <img src="images/smash-burger.jpg" alt="SMASH BURGER" />
                 </div>
-                <div class="split-pill-img">
-                  <img src="images/splitted-burger-5.png" alt="Burger details" />
-                </div>
-                <div class="split-pill-side split-pill-black">
-                  <div class="split-pill-content">
-                    <span class="section-title split-pill-label">EST. 2026</span>
-                    <h2 data-translate="about_card_lokum_title">Lokum Burger</h2>
-                    <p data-translate="about_card_lokum_desc">
-                      Dinlendirilmiş dana bonfile ile hazırlanan lokum etlerimizi karamelize soğan, hardal ve yumuşacık ekmeğimizle bir araya getirdik.
-                    </p>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">SMASH BURGER</div>
+                    <div class="ingredients" data-translate="prod_smash_desc">Smash Köfte - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile servis edilir.</div>
                   </div>
                 </div>
               </div>
+            </div>
 
+            <!-- Burger 2 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content even-item">
+                <div class="menu-image-container">
+                  <img src="images/smash-burger-xl.jpg" alt="SMASH BURGER XL" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">SMASH BURGER XL</div>
+                    <div class="ingredients" data-translate="prod_smash_xl_desc">2 adet Smash Köftesi - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Burger 3 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content odd-item">
+                <div class="menu-image-container">
+                  <img src="images/smash-burger-xxl.jpg" alt="SMASH BURGER XXL" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">SMASH BURGER XXL</div>
+                    <div class="ingredients" data-translate="prod_smash_xxl_desc">3 adet Smash Köftesi - Karamelize soğan - Cheddar Peyniri - Trüflü Mayonez. Patates kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Burger 4 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content even-item">
+                <div class="menu-image-container">
+                  <img src="images/hamburgerr.jpg" alt="HAMBURGER" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">HAMBURGER</div>
+                    <div class="ingredients" data-translate="prod_hamburger_desc">Hamburger Köftesi - Domates - Marul - Turşu - Ketçap - Mayonez. Patates Kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Burger 5 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content odd-item">
+                <div class="menu-image-container">
+                  <img src="images/double-hamburger.jpg" alt="DOUBLE HAMBURGER" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">DOUBLE HAMBURGER</div>
+                    <div class="ingredients" data-translate="prod_double_hamburger_desc">2 adet 100gr hamburger köftesi - Domates - Marul - Turşu - Ketçap - Mayonez. Patates Kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Burger 6 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content even-item">
+                <div class="menu-image-container">
+                  <img src="images/cheeseburger.jpg" alt="CHEESEBURGER" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">CHEESEBURGER</div>
+                    <div class="ingredients" data-translate="prod_cheeseburger_desc">Hamburger Köftesi - Cheddar Peyniri - Domates - Marul - Turşu - Ketçap - Mayonez. Patates Kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Burger 7 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content odd-item">
+                <div class="menu-image-container">
+                  <img src="images/double-cheeseburger.jpg" alt="DOUBLE CHEESEBURGER" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">DOUBLE CHEESEBURGER</div>
+                    <div class="ingredients" data-translate="prod_double_cheeseburger_desc">2 adet 100gr hamburger köftesi - Çift Cheddar Peyniri - Domates - Marul - Turşu - Ketçap - Mayonez. Patates Kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Burger 8 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content even-item">
+                <div class="menu-image-container">
+                  <img src="images/beef-tenderloin.jpg" alt="LOKUM BURGER" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">LOKUM BURGER</div>
+                    <div class="ingredients" data-translate="prod_lokum_desc">Bonfile Lokum Et - Karamelize Soğan - Cheddar Peyniri - Hardal. Patates Kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Burger 9 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content odd-item">
+                <div class="menu-image-container">
+                  <img src="images/chicken-burger.jpg" alt="ÇITIR TAVUK BURGER" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">ÇITIR TAVUK BURGER</div>
+                    <div class="ingredients" data-translate="prod_chicken_desc">Çıtır Tavuk - Marul - Cheddar Peyniri - Mayonez. Patates Kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Burger 10 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content even-item">
+                <div class="menu-image-container">
+                  <img src="images/sausage-burger.jpg" alt="SOSİS BURGER" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">SOSİS BURGER</div>
+                    <div class="ingredients" data-translate="prod_sosis_desc">Sosis - Cheddar Peyniri - Marul - Mayonez. Patates Kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Burger 11 -->
+            <div class="col-12 col-md-6 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2 menu-item menu-item--visible">
+              <div class="menu-item-content odd-item">
+                <div class="menu-image-container">
+                  <img src="images/marsvic.jpg" alt="MARSVİÇ" />
+                </div>
+                <div class="menu-details">
+                  <div class="content">
+                    <div class="title">MARSVİÇ</div>
+                    <div class="ingredients" data-translate="prod_marsvic_desc">Jülyen Kesim Sosis - Cheddar Peyniri - Marul - Mayonez. Patates Kızartması ile servis edilir.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-lg-8 offset-lg-2">
+              <div class="row extras-content">
+                <div class="col-12 col-lg-6 extra-group">
+                  <div class="inner-group">
+                    <div class="title">2'li ÇITIR TAVUK</div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6 extra-group">
+                  <div class="inner-group">
+                    <div class="title">4'lü ÇITIR TAVUK</div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6 extra-group">
+                  <div class="inner-group">
+                    <div class="title">PATATES CİPSİ</div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6 extra-group">
+                  <div class="inner-group">
+                    <div class="title">EXTRA CHEDDAR CHEESE</div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6 extra-group">
+                  <div class="inner-group">
+                    <div class="title">İçecekler</div>
+                    <ul class="extra-list list-style-none">
+                      <li><span class="list-title">Coca Cola (Zero-Light) 200ml</span></li>
+                      <li><span class="list-title">Coca Cola (Zero-Light) 330ml</span></li>
+                      <li><span class="list-title">Fanta 200ml</span></li>
+                      <li><span class="list-title">Fanta 330ml</span></li>
+                      <li><span class="list-title">Sprite 330ml</span></li>
+                      <li><span class="list-title">Cappy (Karışık-Vişne) Meyve Suyu 330ml</span></li>
+                      <li><span class="list-title">FuseTea (Şeftali-Limon-Mango &amp; Ananas) 330ml</span></li>
+                      <li><span class="list-title">Eker Tombul Ayran 293ml</span></li>
+                      <li><span class="list-title">Schweppes (Mandalina - Acı Limon) 250ml</span></li>
+                      <li><span class="list-title">Uludağ Premium Maden Suyu</span></li>
+                      <li><span class="list-title">Uludağ Premium Su</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- BRAND PARTNERS -->
-      <section class="brand-partners">
-        <div class="partners-ticker-container">
-          <div class="scroll-ticker partners-scroll-ticker">
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-            <div class="partners-ticker-group">
-              <img src="icons/lente.svg" alt="Lente" /><img src="icons/banvit.svg" alt="Banvit" /><img src="icons/mc-cain.svg" alt="McCain" /><img src="icons/heinz.svg" alt="Heinz" /><img src="icons/pinar.svg" alt="Pınar" />
-            </div>
-          </div>
         </div>
       </section>
 
@@ -235,7 +376,7 @@
                   </a>
                 </div>
 
-                <div class="contact-info-group hours-group">
+                <div class="contact-info-group">
                   <div class="title" data-translate="contact_hours_title">Çalışma Saatleri</div>
                   <div class="group-item" data-translate="contact_hours_weekdays">Pazartesi - Cumartesi: 12:00 - 21:00</div>
                   <div class="group-item" data-translate="contact_hours_sunday">Pazar: Kapalı</div>

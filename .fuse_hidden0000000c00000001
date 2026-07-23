@@ -235,7 +235,7 @@
                   </a>
                 </div>
 
-                <div class="contact-info-group hours-group">
+                <div class="contact-info-group">
                   <div class="title" data-translate="contact_hours_title">Çalışma Saatleri</div>
                   <div class="group-item" data-translate="contact_hours_weekdays">Pazartesi - Cumartesi: 12:00 - 21:00</div>
                   <div class="group-item" data-translate="contact_hours_sunday">Pazar: Kapalı</div>
