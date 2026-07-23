@@ -544,6 +544,14 @@ img {
    ========================================== */
 #main-layout {
   position: relative;
+  /* html/body already have overflow-x: hidden, but that only suppresses
+     the viewport's own scrollbar — it doesn't stop this wrapper's own
+     content box (position:relative, so its own containing block) from
+     measuring wider than the viewport if something inside overflows
+     horizontally (tickers/spines with fixed large widths, transforms,
+     etc. can render differently across screen sizes than in a local
+     dev window). Clipping it here too closes that gap. */
+  overflow-x: hidden;
 }
 
 #main-page {
@@ -552,6 +560,7 @@ img {
   width: 100%;
   margin-bottom: 150px;
   margin-top: 0;
+  overflow-x: hidden;
 }
 
 /* About page only: the real gap before the footer wasn't the strip's
