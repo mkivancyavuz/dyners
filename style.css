@@ -1595,16 +1595,19 @@ img {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+  color: #fff;
 }
 
 .icon-container {
-  width: 18px;
-  height: 18px;
+  width: 26px;
+  height: 26px;
   flex-shrink: 0;
-  color: #f2ad00;
+  color: #fff;
   display: flex;
+}
+.icon-container svg:hover {
+  fill: #641913;
 }
 .icon-container svg {
   width: 100%;
@@ -2222,13 +2225,16 @@ img {
   font-size: 14px;
   color: #fff;
   margin-left: auto;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
 }
 
 .footer-codio a {
   color: #fff;
   font-weight: 700;
-  display: inline-flex;
-  align-items: center;
+  position: relative;
+  top: 2px;
 }
 
 /* codio-dark.svg is a near-black mark (#0e1f26), meant for light
