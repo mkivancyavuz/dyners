@@ -319,6 +319,21 @@ document.addEventListener("DOMContentLoaded", () => {
       productTab.style.left = `${activeThumb.offsetLeft + ringPadding}px`;
     };
 
+    // .navigation-group only ever scrolls horizontally (overflow-x: auto,
+    // no vertical overflow), so it isn't a valid vertical scroll container.
+    // element.scrollIntoView({block: ...}) still walks up to the page/
+    // window for the vertical axis in that case, which is what was
+    // shifting the entire screen on every thumbnail click. Scrolling the
+    // strip's own scrollLeft directly keeps this fully contained — the
+    // page never moves.
+    const scrollThumbIntoView = (thumb) => {
+      const container = thumb.closest(".navigation-group");
+      if (!container) return;
+      const target =
+        thumb.offsetLeft - (container.clientWidth - thumb.offsetWidth) / 2;
+      container.scrollTo({ left: target, behavior: "smooth" });
+    };
+
     const selectProduct = (index) => {
       const targetIndex = String(index);
       let activeThumb = null;
@@ -332,7 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
       infoGroups.forEach(g => g.classList.toggle("active", g.getAttribute("data-index") === targetIndex));
 
       if (activeThumb) {
-        activeThumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        scrollThumbIntoView(activeThumb);
         positionTab(activeThumb);
       }
     };
